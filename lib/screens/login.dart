@@ -25,19 +25,24 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    double baseWidth = 375;
+    double fem = MediaQuery.of(context).size.width / baseWidth;
+    double ffem = fem * 0.97;
     return Scaffold(
+      backgroundColor: Color(0xFF0b2d78),
       body: SingleChildScrollView(
         child: Stack(
           children: [
             // Container com a imagem de fundo principal
             Container(
+
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/fundo_login.png'),
                   fit: BoxFit.cover,
                 ),
               ),
-              height: MediaQuery.of(context).size.height + 500, // Defina a altura para ocupar toda a tela
+              height: MediaQuery.of(context).size.height, // Defina a altura para ocupar toda a tela
               width: MediaQuery.of(context).size.width, // Defina a largura para ocupar toda a tela
             ),
             Align(
@@ -49,7 +54,8 @@ class _LoginState extends State<Login> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                height: 400,
+                height: 400*fem,
+                width: double.infinity,
               ),
             ),
             // Conteúdo no centro da tela
@@ -57,23 +63,23 @@ class _LoginState extends State<Login> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 40.0, top: 400.0),
+                  padding: EdgeInsets.only(left: 40*fem, top: 400*fem),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Login',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        fontSize: 40.0,
+                        fontSize: 40*ffem,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: 20.0),
+                SizedBox(height: 20*fem),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40.0),
+                  padding: EdgeInsets.symmetric(horizontal: 40*fem),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -85,7 +91,7 @@ class _LoginState extends State<Login> {
                           labelText: 'Email',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
-                            fontSize: 17.0,
+                            fontSize: 17*ffem,
                             fontWeight: FontWeight.w400,
                             color: Colors.yellow,
                           ),
@@ -97,22 +103,25 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.0),
+                      SizedBox(height: 20*fem),
                       TextField(
+                        style: TextStyle(
+                          color: Colors.white, // Define a cor do texto digitado
+                        ),
                         obscureText: _obscureText,
                         decoration: InputDecoration(
                           labelText: 'Senha',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
-                            fontSize: 17.0,
+                            fontSize: 17*ffem,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white,
+                            color: Colors.yellow,
                           ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Color(0xFF354170), width: 2.0),
                           ),
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 2.0),
+                            borderSide: BorderSide(color: Colors.yellow, width: 2.0),
                           ),
                           suffixIcon: IconButton(
                             icon: Icon(
@@ -123,21 +132,21 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30.0), // Espaço adicional para o texto "Esqueci minha senha"
+                      SizedBox(height: 30*fem), // Espaço adicional para o texto "Esqueci minha senha"
                       GestureDetector(
                         onTap: _forgotPassword, // Chama a função ao clicar no texto
                         child: Text(
                           'Esqueci minha senha',
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            fontSize: 13.0,
+                            fontSize: 13*ffem,
                             fontWeight: FontWeight.w500,
                             color: Colors.yellow,
                           ),
                           textAlign: TextAlign.right, // Alinha o texto à direita
                         ),
                       ),
-                      SizedBox(height: 40.0), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 40*fem), // Espaço adicional para o botão "Login"
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
@@ -154,7 +163,7 @@ class _LoginState extends State<Login> {
                             child: Text(
                               'Login',
                               style: TextStyle(
-                                fontSize: 18.0,
+                                fontSize: 18*ffem,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -164,7 +173,6 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-                SizedBox(height: 200.0),
               ],
             ),
           ],
