@@ -1,44 +1,158 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
-class EsqueceuSenha extends StatelessWidget {
+class EsqueceuSenha extends StatefulWidget {
+  @override
+  _EsqueceuSenhaState createState() => _EsqueceuSenhaState();
+}
+
+class _EsqueceuSenhaState extends State<EsqueceuSenha> {
+  bool isKeyboardVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    KeyboardVisibilityController().onChange.listen((bool visible) {
+      setState(() {
+        isKeyboardVisible = visible;
+      });
+    });
+  }
+
+  void _esqueceuSenha() {
+    // Adicione aqui a lógica para efetuar o login
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF0C2172),
-        toolbarHeight: 4.0,
-        leading: Padding(
-          padding: EdgeInsets.only(left: 40.0, top: 40.0),
+      body: CustomScrollView(
+        slivers: <Widget>[
+      SliverAppBar(
+      backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: Container(
+          padding: EdgeInsets.only(left: 20.0),
           child: IconButton(
-            icon: Image.asset('assets/ic_volta.svg'), // Substitua 'assets/ic_volta.png' pelo caminho correto do seu SVG
+            icon: SvgPicture.asset('assets/ic_volta.svg'),
             onPressed: () {
-              Navigator.pop(context); // Navegue de volta para a tela anterior
+              Navigator.pop(context);
             },
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/img_esqueceuSenha.svg', // Substitua 'assets/img_esqueceuSenha.png' pelo caminho correto do seu SVG
-              width: 200.0, // Ajuste o tamanho da imagem conforme necessário
-              height: 200.0,
+      SliverList(
+        delegate: SliverChildListDelegate(
+          [
+            SizedBox(height: 20.0), // Espaço superior
+            Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, left: 40.0, right: 40.0),
+                  child: SvgPicture.asset(
+                    'assets/img_esqueceuSenha.svg',
+                    width: 320,
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 20.0),
-            Text(
-              'Esqueceu Sua Senha',
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 40.0),
+                child: Text(
+                  'Esqueceu         sua senha?',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF0C2172),
+                  ),
+                ),
               ),
             ),
-            SizedBox(height: 20.0),
-            // Adicione outros elementos da tela aqui, como campos de entrada de email e botões.
+            SizedBox(height: 10.0),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 40.0, right: 40.0),
+                child: Text(
+                  'Não se preocupe. Por favor, insira abaixo o email associado a sua conta.',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Roboto',
+                    color: Color(0xFF010410),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextField(
+                    style: TextStyle(
+                      color: Color(0xFF010410),
+                    ),
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      labelStyle: TextStyle(
+                        fontFamily: 'Open Sans',
+                        fontSize: 17.0,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF0C2172),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFF354170),
+                          width: 2.0,
+                        ),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0xFF0C2172),
+                          width: 2.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 40.0),
+                  ElevatedButton(
+                    onPressed: _esqueceuSenha,
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF0C2172),
+                      onPrimary: Colors.yellow,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Enviar',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: isKeyboardVisible ? 10.0 : 0.0), // Espaço extra para acomodar o teclado
           ],
         ),
       ),
+        ],
+    ),
+
     );
   }
 }
