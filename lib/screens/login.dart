@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
     double ffem = fem * 0.97;
     return Scaffold(
       backgroundColor: Color(0xFF0b2d78),
-      body: SingleChildScrollView (
+      body: SingleChildScrollView(
         child: Stack(
           children: [
             // Container com a imagem de fundo principal
