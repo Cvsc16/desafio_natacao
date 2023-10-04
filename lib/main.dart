@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/login.dart';
 import 'screens/esqueceuSenha.dart';
+import 'screens/homeAtleta.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white, // Define a cor de fundo da aplicação
       ),
-      home: EsqueceuSenha(), // Use a tela de login como página inicial
+      home: HomeAtleta(), // Use a tela de login como página inicial
     );
   }
 }
