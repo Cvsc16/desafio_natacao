@@ -68,6 +68,7 @@ flutter:
     - assets/cima_fundo.png
     - assets/ic_volta.svg
     - assets/img_esqueceuSenha.svg
+    - assets/grafico.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
