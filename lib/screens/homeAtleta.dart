@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../widgets/barra_navegacao.dart';
 
 class Treino extends StatelessWidget {
   final String id_treino;
@@ -91,7 +92,25 @@ class Treino extends StatelessWidget {
   }
 }
 
-class HomeAtleta extends StatelessWidget {
+class HomeAtleta extends StatefulWidget {
+  @override
+  _HomeAtletaState createState() => _HomeAtletaState();
+}
+
+class _HomeAtletaState extends State<HomeAtleta> {
+  int _selectedIndex = 0; // Índice da aba selecionada
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Página 1'), // Conteúdo da primeira aba
+    Text('Página 2'), // Conteúdo da segunda aba
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -284,7 +303,16 @@ class HomeAtleta extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: CustomBottomNavigation(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+      ),
     );
   }
 }
 
+void main() {
+  runApp(MaterialApp(
+    home: HomeAtleta(),
+  ));
+}
