@@ -1,9 +1,13 @@
+import 'package:desafio6etapa/screens/cadastro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/login.dart';
 import 'screens/esqueceuSenha.dart';
 import 'screens/homeAtleta.dart';
 import 'screens/perfilAtleta.dart';
+import 'screens/cadastro.dart';
+import 'screens/homeTreinador.dart';
+import 'screens/registroTreino.dart';
 
 
 import 'widgets/barra_navegacao.dart';
@@ -25,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white, // Define a cor de fundo da aplicação
       ),
-      home: PerfilAtleta(), // Use a tela de login como página inicial
+      home: RegistroTreino(), // Use a tela de login como página inicial
     );
   }
 }

@@ -23,6 +23,8 @@ class _LoginState extends State<Login> {
     // Adicione aqui a lógica para efetuar o login
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -32,10 +34,8 @@ class _LoginState extends State<Login> {
       backgroundColor: Color(0xFF0b2d78),
       body: SingleChildScrollView(
         child: Stack(
-          children: [
-            // Container com a imagem de fundo principal
+          children: [ // Container com a imagem de fundo principal
             Container(
-
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('assets/fundo_login.png'),

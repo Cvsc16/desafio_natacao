@@ -38,7 +38,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -73,6 +72,9 @@ flutter:
     - assets/inicio_selecionado.svg
     - assets/perfil.svg
     - assets/perfil_selecionado.svg
+    - assets/fundo_cadastro.png
+    - assets/novo_atleta.svg
+    - assets/novo_treino.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

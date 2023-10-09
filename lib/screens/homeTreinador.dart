@@ -93,13 +93,43 @@ class Treino extends StatelessWidget {
   }
 }
 
-class HomeAtleta extends StatefulWidget {
+class HomeTreinador extends StatefulWidget {
   @override
-  _HomeAtletaState createState() => _HomeAtletaState();
+  _HomeTreinadorState createState() => _HomeTreinadorState();
 }
 
-class _HomeAtletaState extends State<HomeAtleta> {
+class _HomeTreinadorState extends State<HomeTreinador> {
   int _selectedIndex = 0; // Índice da aba selecionada
+
+  Widget buildDropdownItem(String title) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.2060, // Defina a largura desejada
+      height: MediaQuery.of(context).size.width * 0.12, // Defina a largura desejada
+      decoration: BoxDecoration(
+        color: Color(0xFF0F2F7A), // Cor de fundo azul
+        borderRadius: BorderRadius.circular(5.0), // Raio da borda de 5
+      ),
+      padding: EdgeInsets.only(left: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 12.0,
+              fontFamily: 'Open Sans',
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+          Icon(
+            Icons.arrow_drop_down,
+            color: Colors.yellow, // Cor da seta amarela
+          ),
+        ],
+      ),
+    );
+  }
 
   // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
@@ -110,7 +140,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
       // Navegar para a primeira tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeAtleta()), // Substitua 'Tela1' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
       );
     } else if (index == 1) {
       // Navegar para a segunda tela
@@ -134,7 +164,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
         elevation: 0.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 60.0, 0.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -174,8 +204,24 @@ class _HomeAtletaState extends State<HomeAtleta> {
               ),
             ),
             SizedBox(height: 25.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 0.0), // Espaço de 20 unidades à direita
+                    child: SvgPicture.asset('assets/novo_treino.svg'),
+                  ),
+                ),
+                SizedBox(width: 20.0), // Espaço entre as imagens
+                Expanded(
+                    child: SvgPicture.asset('assets/novo_atleta.svg'),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.0),
             Text(
-              'Meus Tempos',
+              'Melhores da Semana',
               style: TextStyle(
                 fontSize: 17.0,
                 fontFamily: 'Open Sans',
@@ -184,7 +230,16 @@ class _HomeAtletaState extends State<HomeAtleta> {
               ),
             ),
             SizedBox(height: 20.0),
-            // Usar um Stack para envolver o retângulo azul e cinza
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                buildDropdownItem('Estilo'),
+                buildDropdownItem('Sexo'),
+                buildDropdownItem('Prova'),
+                buildDropdownItem('Período'),
+              ],
+            ),
+            SizedBox(height: 30.0),
             Stack(
               children: [
                 Container(
@@ -205,19 +260,19 @@ class _HomeAtletaState extends State<HomeAtleta> {
                           children: [
                             Treino(
                               id_treino: '1',
-                              tipo_treino: 'Nado borboleta - 100m',
+                              tipo_treino: 'Carlos Augusto',
                               data_treino: '04/10/2023',
                               tempo_treino: '07:10:65',
                             ),
                             Treino(
                               id_treino: '2',
-                              tipo_treino: 'Nado crawl - 50m',
+                              tipo_treino: 'Lucas Santana',
                               data_treino: '05/10/2023',
                               tempo_treino: '08:15:42',
                             ),
                             Treino(
                               id_treino: '3',
-                              tipo_treino: 'Nado Borboleta - 100m',
+                              tipo_treino: 'Thauany Silva',
                               data_treino: '02/10/2023',
                               tempo_treino: '10:15:42',
                             ),
@@ -230,90 +285,6 @@ class _HomeAtletaState extends State<HomeAtleta> {
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      'Média',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        fontFamily: 'Open Sans',
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF0F2F7A),
-                      ),
-                    ),
-                    Spacer(), // Isso fará com que o retângulo ocupe o espaço restante à direita
-                    Container(
-                      width: 140.0,
-                      height: 30.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Color(0xFFE3E3E3),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround, // Alinhar os textos horizontalmente no espaço disponível
-                        children: [
-                          // Valor "50m"
-                          Container(
-                            width: 36.0,
-                            height: 20.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: Color(0xFF0C2172), // Cor azul de seleção
-                            ),
-                            child: Center(
-                              child: Text(
-                                '50m',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontFamily: 'Open Sans',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white, // Texto em branco para indicar seleção
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          // Valor "100m"
-                          Text(
-                            '100m',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Open Sans',
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F2F7A), // Cor padrão
-                            ),
-                          ),
-
-                          // Valor "500m"
-                          Text(
-                            '500m',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Open Sans',
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F2F7A), // Cor padrão
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 20.0),
-                  ],
-                ),
-                SizedBox(height: 40.0), // Espaçamento de 20 pixels entre o Row e o SVG
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/grafico.svg',
-                    ),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -327,6 +298,8 @@ class _HomeAtletaState extends State<HomeAtleta> {
 
 void main() {
   runApp(MaterialApp(
-    home: HomeAtleta(),
+    home: HomeTreinador(),
   ));
 }
+
+
