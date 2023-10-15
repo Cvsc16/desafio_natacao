@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/barra_navegacao.dart';
 
-class PerfilAtleta extends StatefulWidget {
+class InformacoesComplementares extends StatefulWidget {
   @override
-  _PerfilAtletaState createState() => _PerfilAtletaState();
+  _InformacoesComplementaresState createState() => _InformacoesComplementaresState();
 }
 
-class _PerfilAtletaState extends State<PerfilAtleta> {
+class _InformacoesComplementaresState extends State<InformacoesComplementares> {
 
   void _salvar() {
     // Adicione aqui a lógica para efetuar o login
@@ -32,7 +32,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => InformacoesComplementares()), // Substitua 'Tela2' pela tela que deseja exibir
       );
     }
     // Atualize o índice selecionado
@@ -68,10 +68,10 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
               centerTitle: true, // Centralizar o título
               titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
               title: Text(
-                'Meu Perfil',
+                'Informações Adicionais',
                 style: TextStyle(
                   fontFamily: 'Roboto',
-                  fontSize: 28.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF06113C),
                 ),
@@ -93,7 +93,34 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                           color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
-                          labelText: 'Nome',
+                          labelText: 'Endereço',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Bairro',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -121,35 +148,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                         ),
                         obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 17 * ffem,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF0C2172),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF2C2C2E),
-                              width: 2.0,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF0C2172),
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20 * ffem),
-                      TextField(
-                        style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
-                        ),
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Data de Nascimento',
+                          labelText: 'Cep',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -238,7 +237,6 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                         style: TextStyle(
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
-                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'CPF',
                           labelStyle: TextStyle(
@@ -262,16 +260,249 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                         ),
                       ),
                       SizedBox(height: 20 * ffem),
-                      Text(
-                        '+ Informações Complementares',
+                      TextField(
                         style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF0C2172),
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
                         ),
                       ),
-                      SizedBox(height: 20 * ffem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CPF',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 40 * ffem),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
@@ -296,6 +527,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                           ),
                         ),
                       ),
+                      SizedBox(height: 40 * ffem),
                     ],
                   ),
                 ),

@@ -75,6 +75,12 @@ flutter:
     - assets/fundo_cadastro.png
     - assets/novo_atleta.svg
     - assets/novo_treino.svg
+    - assets/avancar.svg
+    - assets/novo_registro.svg
+    - assets/barra.svg
+    - assets/fundo_atleta.png
+    - assets/fundo_treinador.png
+    - assets/fundo_adm.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

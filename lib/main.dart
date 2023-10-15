@@ -8,7 +8,12 @@ import 'screens/perfilAtleta.dart';
 import 'screens/cadastro.dart';
 import 'screens/homeTreinador.dart';
 import 'screens/registroTreino.dart';
-
+import 'screens/cronometro.dart';
+import 'screens/atletas.dart';
+import 'screens/registroAtleta.dart';
+import 'screens/homeADM.dart';
+import 'screens/novoUsuario.dart';
+import 'screens/informacoes_complementares.dart';
 
 import 'widgets/barra_navegacao.dart';
 
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white, // Define a cor de fundo da aplicação
       ),
-      home: RegistroTreino(), // Use a tela de login como página inicial
+      home: InformacoesComplementares(), // Use a tela de login como página inicial
     );
   }
 }
