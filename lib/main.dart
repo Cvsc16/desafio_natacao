@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white, // Define a cor de fundo da aplicação
       ),
-      home: InformacoesComplementares(), // Use a tela de login como página inicial
+      home: HomeAtleta(), // Use a tela de login como página inicial
     );
   }
 }

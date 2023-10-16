@@ -15,13 +15,10 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
     // Adicione aqui a lógica para efetuar o login
   }
 
-  int _selectedIndex = 0; // Índice da aba selecionada
+  int _selectedIndex = 1; // Índice da aba selecionada
 
   // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
-    // Aqui você pode adicionar a lógica para lidar com a troca de aba
-    // Por exemplo, você pode usar um Navigator para navegar para diferentes telas com base na aba selecionada.
-    // Exemplo:
     if (index == 0) {
       // Navegar para a primeira tela
       Navigator.pushReplacement(
