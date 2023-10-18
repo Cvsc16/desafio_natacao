@@ -83,6 +83,8 @@ flutter:
     - assets/fundo_adm.png
     - assets/resultados.svg
     - assets/resultados_selecionado.svg
+    - assets/cadastros.svg
+    - assets/cadastros_selecionado.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

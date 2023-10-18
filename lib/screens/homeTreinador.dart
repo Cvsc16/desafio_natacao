@@ -1,7 +1,9 @@
+import 'package:desafio6etapa/screens/atletas.dart';
 import 'package:desafio6etapa/screens/perfilAtleta.dart';
+import 'package:desafio6etapa/screens/registroTreino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/barra_navegacao.dart';
+import '../widgets/barra_navegacao2.dart';
 
 class Treino extends StatelessWidget {
   final String id_treino;
@@ -101,6 +103,33 @@ class HomeTreinador extends StatefulWidget {
 class _HomeTreinadorState extends State<HomeTreinador> {
   int _selectedIndex = 0; // Índice da aba selecionada
 
+  // Método para lidar com a troca de aba
+  void _onItemTapped(int index) {
+    if (index == 0) {
+      // Navegar para a primeira tela
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
+      );
+    } else if (index == 1) {
+      // Navegar para a segunda tela
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Atletas()), // Substitua 'Tela2' pela tela que deseja exibir
+      );
+    } else if (index == 2) {
+      // Navegar para a segunda tela
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
+      );
+    }
+    // Atualize o índice selecionado
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   Widget buildDropdownItem(String title) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.2060, // Defina a largura desejada
@@ -129,30 +158,6 @@ class _HomeTreinadorState extends State<HomeTreinador> {
         ],
       ),
     );
-  }
-
-  // Método para lidar com a troca de aba
-  void _onItemTapped(int index) {
-    // Aqui você pode adicionar a lógica para lidar com a troca de aba
-    // Por exemplo, você pode usar um Navigator para navegar para diferentes telas com base na aba selecionada.
-    // Exemplo:
-    if (index == 0) {
-      // Navegar para a primeira tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
-      );
-    } else if (index == 1) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
-      );
-    }
-    // Atualize o índice selecionado
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
   @override
@@ -288,7 +293,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigation(
+      bottomNavigationBar: CustomBottomNavigation2(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),

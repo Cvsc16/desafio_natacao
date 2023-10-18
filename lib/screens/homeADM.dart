@@ -1,7 +1,9 @@
+import 'package:desafio6etapa/screens/consultarUsuarios.dart';
+import 'package:desafio6etapa/screens/novoUsuario.dart';
 import 'package:desafio6etapa/screens/perfilAtleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/barra_navegacao.dart';
+import '../widgets/barra_navegacao3.dart';
 
 
 
@@ -11,7 +13,7 @@ class HomeADM extends StatefulWidget {
 }
 
 class _HomeADMState extends State<HomeADM> {
-  int _selectedIndex = 0; // Índice da aba selecionada
+  int _selectedIndex = 0;
 
   // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
@@ -28,7 +30,7 @@ class _HomeADMState extends State<HomeADM> {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => ConsultarUsuarios()), // Substitua 'Tela2' pela tela que deseja exibir
       );
     }
     // Atualize o índice selecionado
@@ -100,7 +102,7 @@ class _HomeADMState extends State<HomeADM> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigation(
+      bottomNavigationBar: CustomBottomNavigation3(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
