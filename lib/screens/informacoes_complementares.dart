@@ -15,32 +15,6 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
     // Adicione aqui a lógica para efetuar o login
   }
 
-  int _selectedIndex = 0; // Índice da aba selecionada
-
-  // Método para lidar com a troca de aba
-  void _onItemTapped(int index) {
-    // Aqui você pode adicionar a lógica para lidar com a troca de aba
-    // Por exemplo, você pode usar um Navigator para navegar para diferentes telas com base na aba selecionada.
-    // Exemplo:
-    if (index == 0) {
-      // Navegar para a primeira tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeAtleta()), // Substitua 'Tela1' pela tela que deseja exibir
-      );
-    } else if (index == 1) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => InformacoesComplementares()), // Substitua 'Tela2' pela tela que deseja exibir
-      );
-    }
-    // Atualize o índice selecionado
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -82,7 +56,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 60 * ffem),
+                SizedBox(height: 40 * ffem),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40 * ffem),
                   child: Column(
@@ -535,10 +509,6 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigation(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

@@ -21,8 +21,57 @@ class _EsqueceuSenhaState extends State<EsqueceuSenha> {
     });
   }
 
-  void _esqueceuSenha() {
-    // Adicione aqui a lógica para efetuar o login
+  final TextEditingController emailController = TextEditingController();
+
+  final emailToUserType = {
+    'atleta@gmail.com': 'atleta',
+    'treinador@gmail.com': 'treinador',
+    'adm@gmail.com': 'administrador',
+  };
+
+  void _esqueceuSenha(String email) {
+    if (emailToUserType.containsKey(email)) {
+
+      final usuario = emailToUserType[email];
+      print('Email de verificação enviado para $email (Tipo de Usuário: $usuario)');
+      // Exibir um diálogo informando que o email de verificação foi enviado
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Email de Verificação Enviado'),
+            content: Text('Um email de verificação foi enviado para $email (Tipo de Usuário: $usuario).'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // O email não está cadastrado no sistema
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Email Não Encontrado'),
+            content: Text('O email $email não está cadastrado no sistema.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override
@@ -97,6 +146,7 @@ class _EsqueceuSenhaState extends State<EsqueceuSenha> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   TextField(
+                    controller: emailController,
                     style: TextStyle(
                       color: Color(0xFF010410),
                     ),
@@ -124,7 +174,7 @@ class _EsqueceuSenhaState extends State<EsqueceuSenha> {
                   ),
                   SizedBox(height: 40.0),
                   ElevatedButton(
-                    onPressed: _esqueceuSenha,
+                    onPressed: () => _esqueceuSenha(emailController.text),
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFF0C2172),
                       onPrimary: Colors.yellow,

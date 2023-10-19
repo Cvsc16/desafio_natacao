@@ -1,3 +1,4 @@
+import 'package:desafio6etapa/screens/cronometro.dart';
 import 'package:desafio6etapa/screens/homeAtleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -183,13 +184,14 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
-                          onPressed: _salvar, // Chama a função ao clicar no botão
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Cronometro()));
+                          },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF0C2172) , // Cor de fundo amarela
+                            primary: Color(0xFF0C2172), // Cor de fundo amarela
                             onPrimary: Colors.yellow, // Cor do texto "#0C2172"
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  50.0), // Raio da borda de 50
+                              borderRadius: BorderRadius.circular(50.0), // Raio da borda de 50
                             ),
                           ),
                           child: Padding(
@@ -203,7 +205,7 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                             ),
                           ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),

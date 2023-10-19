@@ -1,44 +1,19 @@
+import 'package:desafio6etapa/screens/atletas.dart';
 import 'package:desafio6etapa/screens/homeAtleta.dart';
-import 'package:desafio6etapa/screens/informacoes_complementares.dart';
+import 'package:desafio6etapa/screens/homeTreinador.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao.dart';
+import '../widgets/barra_navegacao2.dart';
 
-class PerfilAtleta extends StatefulWidget {
+class PerfilUsuarios extends StatefulWidget {
   @override
-  _PerfilAtletaState createState() => _PerfilAtletaState();
+  _PerfilUsuariosState createState() => _PerfilUsuariosState();
 }
 
-class _PerfilAtletaState extends State<PerfilAtleta> {
-  TextEditingController _rgController = TextEditingController(text: '432525234');
-
+class _PerfilUsuariosState extends State<PerfilUsuarios> {
 
   void _salvar() {
-
-  }
-
-  int _selectedIndex = 1; // Índice da aba selecionada
-
-  // Método para lidar com a troca de aba
-  void _onItemTapped(int index) {
-    if (index == 0) {
-      // Navegar para a primeira tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeAtleta()), // Substitua 'Tela1' pela tela que deseja exibir
-      );
-    } else if (index == 1) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
-      );
-    }
-    // Atualize o índice selecionado
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
   @override
@@ -53,13 +28,22 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
           SliverAppBar(
             backgroundColor: Colors.white,
             elevation: 0.0,
+            leading: Container(
+              padding: EdgeInsets.only(left: 20.0),
+              child: IconButton(
+                icon: SvgPicture.asset('assets/ic_volta.svg'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
             floating: false, // Define se o app bar deve aparecer ao rolar para cima
             pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true, // Centralizar o título
               titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
               title: Text(
-                'Meu Perfil',
+                'Perfil Usuário',
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 28.0,
@@ -73,7 +57,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 40 * ffem),
+                SizedBox(height: 60 * ffem),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40 * ffem),
                   child: Column(
@@ -199,7 +183,6 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
-                        controller: _rgController,
                         style: TextStyle(
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
@@ -254,26 +237,6 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                         ),
                       ),
                       SizedBox(height: 20 * ffem),
-                      GestureDetector(
-                        onTap: () {
-                          // Navegar para a tela de Informações Complementares
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => InformacoesComplementares(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          '+ Informações Complementares',
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF0C2172),
-                          ),
-                        ),
-                      ),
                       SizedBox(height: 20 * ffem), // Espaço adicional para o botão "Login"
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
@@ -306,10 +269,6 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationAtleta(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

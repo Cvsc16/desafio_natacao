@@ -1,5 +1,7 @@
 import 'package:desafio6etapa/screens/atletas.dart';
+import 'package:desafio6etapa/screens/cadastro.dart';
 import 'package:desafio6etapa/screens/perfilAtleta.dart';
+import 'package:desafio6etapa/screens/perfilTreinador.dart';
 import 'package:desafio6etapa/screens/registroTreino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -121,7 +123,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => PerfilTreinador()), // Substitua 'Tela2' pela tela que deseja exibir
       );
     }
     // Atualize o índice selecionado
@@ -213,14 +215,24 @@ class _HomeTreinadorState extends State<HomeTreinador> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 0.0), // Espaço de 20 unidades à direita
-                    child: SvgPicture.asset('assets/novo_treino.svg'),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroTreino()));
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 00.0),
+                      child: SvgPicture.asset('assets/novo_treino.svg'),
+                    ),
                   ),
                 ),
                 SizedBox(width: 20.0), // Espaço entre as imagens
                 Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
+                    },
                     child: SvgPicture.asset('assets/novo_atleta.svg'),
+                  ),
                 ),
               ],
             ),
@@ -293,7 +305,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigation2(
+      bottomNavigationBar: CustomBottomNavigationTreinador(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),

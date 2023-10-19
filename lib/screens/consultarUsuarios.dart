@@ -1,5 +1,6 @@
 import 'package:desafio6etapa/screens/homeADM.dart';
 import 'package:desafio6etapa/screens/homeAtleta.dart';
+import 'package:desafio6etapa/screens/usuariosConsulta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,7 +73,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               centerTitle: true,
               titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
-                'Novo Usuário',
+                'Usuários',
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 28.0,
@@ -89,14 +90,19 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                Container(
-                  height: 180.0,
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/fundo_atleta.png'),
-                      fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta()));
+                  },
+                  child: Container(
+                    height: 180.0,
+                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      image: DecorationImage(
+                        image: AssetImage('assets/fundo_atleta.png'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -145,14 +151,19 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                Container(
-                  height: 180.0,
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/fundo_treinador.png'),
-                      fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta()));
+                  },
+                  child: Container(
+                    height: 180.0,
+                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      image: DecorationImage(
+                        image: AssetImage('assets/fundo_treinador.png'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -201,14 +212,19 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                Container(
-                  height: 180.0,
-                  margin: EdgeInsets.symmetric(horizontal: 20.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    image: DecorationImage(
-                      image: AssetImage('assets/fundo_adm.png'),
-                      fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta()));
+                  },
+                  child: Container(
+                    height: 180.0,
+                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      image: DecorationImage(
+                        image: AssetImage('assets/fundo_adm.png'),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -251,43 +267,43 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               ],
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              SizedBox(height: 20.0),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                    width: 150.0,
-                    child: ElevatedButton(
-                      onPressed: _salvar,
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF0C2172),
-                        onPrimary: Colors.yellow,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.0),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          'Avançar',
-                          style: TextStyle(
-                            fontSize: 18 * ffem,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ]),
-          ),
+          // SliverList(
+          //   delegate: SliverChildListDelegate([
+          //     SizedBox(height: 20.0),
+          //     Container(
+          //       margin: EdgeInsets.symmetric(horizontal: 20.0),
+          //       child: Align(
+          //         alignment: Alignment.centerRight,
+          //         child: SizedBox(
+          //           width: 150.0,
+          //           child: ElevatedButton(
+          //             onPressed: _salvar,
+          //             style: ElevatedButton.styleFrom(
+          //               primary: Color(0xFF0C2172),
+          //               onPrimary: Colors.yellow,
+          //               shape: RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.circular(50.0),
+          //               ),
+          //             ),
+          //             child: Padding(
+          //               padding: EdgeInsets.all(16.0),
+          //               child: Text(
+          //                 'Avançar',
+          //                 style: TextStyle(
+          //                   fontSize: 18 * ffem,
+          //                   fontWeight: FontWeight.bold,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ),
+          //   ]),
+          // ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigation3(
+      bottomNavigationBar: CustomBottomNavigationADM(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),

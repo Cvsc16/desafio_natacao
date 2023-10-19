@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomBottomNavigation2 extends StatelessWidget {
+class CustomBottomNavigationTreinador extends StatelessWidget {
   final int selectedIndex;
   final void Function(int) onItemTapped;
 
-  CustomBottomNavigation2({
+  CustomBottomNavigationTreinador({
     required this.selectedIndex,
     required this.onItemTapped,
   });

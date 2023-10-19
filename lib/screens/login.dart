@@ -1,3 +1,7 @@
+import 'package:desafio6etapa/screens/esqueceuSenha.dart';
+import 'package:desafio6etapa/screens/homeADM.dart';
+import 'package:desafio6etapa/screens/homeAtleta.dart';
+import 'package:desafio6etapa/screens/homeTreinador.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -15,13 +19,89 @@ class _LoginState extends State<Login> {
   }
 
   void _forgotPassword() {
-    // Adicione aqui a navegação para a tela de recuperação de senha
-    // Por exemplo: Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPasswordScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => EsqueceuSenha()));
   }
 
-  void _login() {
-    // Adicione aqui a lógica para efetuar o login
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
+  final usuarios = [
+    {
+      'email': 'atleta@gmail.com',
+      'password': 'atleta123',
+      'tipo': 'atleta',
+    },
+    {
+      'email': 'treinador@gmail.com',
+      'password': 'treinador123',
+      'tipo': 'treinador',
+    },
+    {
+      'email': 'adm@gmail.com',
+      'password': 'adm123',
+      'tipo': 'administrador',
+    },
+  ];
+
+  void _login(String email, String password) {
+    bool loginSuccessful = false;
+    String? userType = '';
+
+    final emailToUserType = {
+      'atleta@gmail.com': 'atleta',
+      'treinador@gmail.com': 'treinador',
+      'adm@gmail.com': 'administrador',
+    };
+
+    if (emailToUserType.containsKey(email)) {
+      final tipo = emailToUserType[email];
+      final usuario = usuarios.firstWhere((user) => user['email'] == email);
+
+      if (usuario['password'] == password) {
+        loginSuccessful = true;
+        userType = tipo;
+      }
+    }
+
+    if (loginSuccessful) {
+      if (userType == 'atleta') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeAtleta()),
+        );
+      } else if (userType == 'treinador') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeTreinador()),
+        );
+      } else if (userType == 'administrador') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeADM()),
+        );
+      }
+    } else {
+      // Exibir uma mensagem de erro, pois o login falhou
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Erro de Login'),
+            content: Text('Os dados de login estão incorretos. Por favor, tente novamente.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Fechar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
+
 
 
 
@@ -84,6 +164,7 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       TextField(
+                        controller: emailController, // Use o controlador aqui
                         style: TextStyle(
                           color: Colors.white, // Define a cor do texto digitado
                         ),
@@ -105,6 +186,7 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 20*fem),
                       TextField(
+                        controller: passwordController, // Use o controlador aqui
                         style: TextStyle(
                           color: Colors.white, // Define a cor do texto digitado
                         ),
@@ -150,7 +232,7 @@ class _LoginState extends State<Login> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
-                          onPressed: _login, // Chama a função ao clicar no botão
+                          onPressed: () => _login(emailController.text, passwordController.text),
                           style: ElevatedButton.styleFrom(
                             primary: Colors.yellow, // Cor de fundo amarela
                             onPrimary: Color(0xFF0C2172), // Cor do texto "#0C2172"

@@ -99,6 +99,7 @@ class HomeAtleta extends StatefulWidget {
 }
 
 class _HomeAtletaState extends State<HomeAtleta> {
+
   int _selectedIndex = 0; // Índice da aba selecionada
 
   // Método para lidar com a troca de aba
@@ -131,7 +132,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
         elevation: 0.0,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 60.0, 0.0, 0.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -185,7 +186,6 @@ class _HomeAtletaState extends State<HomeAtleta> {
             Stack(
               children: [
                 Container(
-                  width: 320.0,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Color(0xFF0C2172),
@@ -297,24 +297,20 @@ class _HomeAtletaState extends State<HomeAtleta> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 20.0),
                   ],
                 ),
                 SizedBox(height: 40.0), // Espaçamento de 20 pixels entre o Row e o SVG
-                Padding(
-                  padding: EdgeInsets.only(right: 20.0),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/grafico.svg',
-                    ),
+                Center(
+                  child: SvgPicture.asset(
+                    'assets/grafico.svg',
                   ),
-                ),
+                )
               ],
             )
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigation(
+      bottomNavigationBar: CustomBottomNavigationAtleta(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),

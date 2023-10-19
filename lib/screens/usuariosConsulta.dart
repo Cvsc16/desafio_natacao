@@ -2,51 +2,19 @@ import 'package:desafio6etapa/screens/homeAtleta.dart';
 import 'package:desafio6etapa/screens/homeTreinador.dart';
 import 'package:desafio6etapa/screens/perfilAtleta.dart';
 import 'package:desafio6etapa/screens/perfilTreinador.dart';
+import 'package:desafio6etapa/screens/perfilUsuarios.dart';
 import 'package:desafio6etapa/screens/registroAtleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao2.dart';
 
-class Atletas extends StatefulWidget {
+class UsuariosConsulta extends StatefulWidget {
   @override
-  _AtletasState createState() => _AtletasState();
+  _UsuariosConsultaState createState() => _UsuariosConsultaState();
 }
 
-class _AtletasState extends State<Atletas> {
-  int _selectedIndex = 1; // Índice da aba selecionada
+class _UsuariosConsultaState extends State<UsuariosConsulta> {
 
-  // Método para lidar com a troca de aba
-  void _onItemTapped(int index) {
-    if (index == 0) {
-      // Navegar para a primeira tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
-      );
-    } else if (index == 1) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Atletas()), // Substitua 'Tela2' pela tela que deseja exibir
-      );
-    } else if (index == 2) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PerfilTreinador()), // Substitua 'Tela2' pela tela que deseja exibir
-      );
-    }
-    // Atualize o índice selecionado
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-
-  void _salvar() {
-    // Adicione aqui a lógica para efetuar o login
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +28,15 @@ class _AtletasState extends State<Atletas> {
           SliverAppBar(
             backgroundColor: Colors.white,
             elevation: 0.0,
+            leading: Container(
+              padding: EdgeInsets.only(left: 20.0),
+              child: IconButton(
+                icon: SvgPicture.asset('assets/ic_volta.svg'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ),
             floating: false, // Define se o app bar deve aparecer ao rolar para cima
             pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
             flexibleSpace: FlexibleSpaceBar(
@@ -127,7 +104,7 @@ class _AtletasState extends State<Atletas> {
                       SizedBox(height: 20 * ffem),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroAtleta()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PerfilUsuarios()));
                         },
                         child: Container(
                           height: 90, // Altura do retângulo externo
@@ -189,10 +166,6 @@ class _AtletasState extends State<Atletas> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationTreinador(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

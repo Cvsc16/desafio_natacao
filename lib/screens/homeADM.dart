@@ -88,21 +88,26 @@ class _HomeADMState extends State<HomeADM> {
               ),
             ),
             SizedBox(height: 25.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 0.0), // Espaço de 20 unidades à direita
-                    child: SvgPicture.asset('assets/novo_registro.svg'),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => NovoUsuario()));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 0.0), // Espaço de 20 unidades à direita
+                      child: SvgPicture.asset('assets/novo_registro.svg'),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigation3(
+      bottomNavigationBar: CustomBottomNavigationADM(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
