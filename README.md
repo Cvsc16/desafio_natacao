@@ -1,15 +1,16 @@
 # desafio6etapa
 
-Usuários padrões para teste da avaliação parcial:
+Caio Vinicius de Souza Costa - 836467<br>
+Diogo Vitor Oliveira Leme - 836846<br>
 
-Atleta:
-email: atleta@gmail.com
-senha: atleta123
+**Usuários padrões para acesso as telas da avaliação parcial:**
 
-Treinador:
-email: treinador@gmail.com
-senha: treinador123
+**Tela Login:**<br><br>
+**Email Atleta:** atleta@gmail.com<br>
+**Senha:** atleta123
 
-Administrador:
-email: adm@gmail.com
-senha: adm123
+**Email Treinador:** treinador@gmail.com<br>
+**Senha:** treinador123
+
+**Email Administrador:** adm@gmail.com<br>
+**Senha:** adm123
