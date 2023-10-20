@@ -1,16 +1,15 @@
 # desafio6etapa
 
-A new Flutter project.
+Usuários padrões para teste da avaliação parcial:
 
-## Getting Started
+Atleta:
+email: atleta@gmail.com
+senha: atleta123
 
-This project is a starting point for a Flutter application.
+Treinador:
+email: treinador@gmail.com
+senha: treinador123
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Administrador:
+email: adm@gmail.com
+senha: adm123
