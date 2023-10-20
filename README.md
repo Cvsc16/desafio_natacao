@@ -6,11 +6,15 @@ Diogo Vitor Oliveira Leme - 836846<br>
 **Usuários padrões para acesso as telas da avaliação parcial:**
 
 **Tela Login:**<br><br>
-**Email Atleta:** atleta@gmail.com<br>
+
+**Atleta:**
+**Email:** atleta@gmail.com<br>
 **Senha:** atleta123
 
-**Email Treinador:** treinador@gmail.com<br>
+**Treinador:**
+**Email:** treinador@gmail.com<br>
 **Senha:** treinador123
 
-**Email Administrador:** adm@gmail.com<br>
+**Administrador:**
+**Email:** adm@gmail.com<br>
 **Senha:** adm123
