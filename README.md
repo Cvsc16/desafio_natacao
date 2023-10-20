@@ -7,14 +7,14 @@ Diogo Vitor Oliveira Leme - 836846<br>
 
 **Tela Login:**<br><br>
 
-**Atleta:**
+**Atleta:**<br>
 **Email:** atleta@gmail.com<br>
 **Senha:** atleta123
 
-**Treinador:**
+**Treinador:**<br>
 **Email:** treinador@gmail.com<br>
 **Senha:** treinador123
 
-**Administrador:**
+**Administrador:**<br>
 **Email:** adm@gmail.com<br>
 **Senha:** adm123
