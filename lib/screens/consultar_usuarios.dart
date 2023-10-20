@@ -1,5 +1,5 @@
-import 'package:desafio6etapa/screens/homeADM.dart';
-import 'package:desafio6etapa/screens/homeAtleta.dart';
+import 'package:desafio6etapa/screens/home_ADM.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/usuariosConsulta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,22 +14,18 @@ class ConsultarUsuarios extends StatefulWidget {
 class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
   int _selectedIndex = 1;
 
-  // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
-    // Aqui você pode adicionar a lógica para lidar com a troca de aba
-    // Por exemplo, você pode usar um Navigator para navegar para diferentes telas com base na aba selecionada.
-    // Exemplo:
+
     if (index == 0) {
-      // Navegar para a primeira tela
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeADM()), // Substitua 'Tela1' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => HomeADM()),
       );
     } else if (index == 1) {
-      // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ConsultarUsuarios()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => ConsultarUsuarios()),
       );
     }
     // Atualize o índice selecionado
@@ -40,7 +36,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
 
 
   void _salvar() {
-    // Adicione aqui a lógica para efetuar o login
+
   }
 
   @override

@@ -31,9 +31,22 @@ class CustomBottomNavigationAtleta extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(top: 10.0), // Espaço superior desejado
+              padding: EdgeInsets.only(top: 0.0), // Espaço superior desejado
               child: SvgPicture.asset(
                 selectedIndex == 1
+                    ? 'assets/cronometro_selecionado.svg'
+                    : 'assets/cronometro.svg',
+                width: 30,
+                height: 30,
+              ),
+            ),
+            label: '', // Esta propriedade está definida como uma string vazia
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10.0), // Espaço superior desejado
+              child: SvgPicture.asset(
+                selectedIndex == 2
                     ? 'assets/perfil_selecionado.svg'
                     : 'assets/perfil.svg',
                 width: 19,

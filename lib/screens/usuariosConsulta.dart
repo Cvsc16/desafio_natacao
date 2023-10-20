@@ -1,9 +1,9 @@
-import 'package:desafio6etapa/screens/homeAtleta.dart';
-import 'package:desafio6etapa/screens/homeTreinador.dart';
-import 'package:desafio6etapa/screens/perfilAtleta.dart';
-import 'package:desafio6etapa/screens/perfilTreinador.dart';
-import 'package:desafio6etapa/screens/perfilUsuarios.dart';
-import 'package:desafio6etapa/screens/registroAtleta.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:desafio6etapa/screens/home_treinador.dart';
+import 'package:desafio6etapa/screens/perfil_atleta.dart';
+import 'package:desafio6etapa/screens/perfil_treinador.dart';
+import 'package:desafio6etapa/screens/perfil_usuarios.dart';
+import 'package:desafio6etapa/screens/registro_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';

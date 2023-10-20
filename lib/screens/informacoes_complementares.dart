@@ -1,4 +1,4 @@
-import 'package:desafio6etapa/screens/homeAtleta.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,11 +36,11 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                 },
               ),
             ),
-            floating: false, // Define se o app bar deve aparecer ao rolar para cima
-            pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
+            floating: false,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true, // Centralizar o título
-              titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
+              titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
                 'Informações Adicionais',
                 style: TextStyle(
@@ -50,7 +50,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -91,7 +91,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'Bairro',
@@ -118,7 +118,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         obscureText: true,
                         decoration: InputDecoration(
@@ -174,7 +174,6 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              // Adicione a lógica para alternar a visibilidade da senha aqui
                             },
                           ),
                         ),
@@ -182,7 +181,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'RG',
@@ -209,7 +208,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'CPF',
@@ -236,7 +235,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'CPF',

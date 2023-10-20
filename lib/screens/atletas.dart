@@ -1,8 +1,8 @@
-import 'package:desafio6etapa/screens/homeAtleta.dart';
-import 'package:desafio6etapa/screens/homeTreinador.dart';
-import 'package:desafio6etapa/screens/perfilAtleta.dart';
-import 'package:desafio6etapa/screens/perfilTreinador.dart';
-import 'package:desafio6etapa/screens/registroAtleta.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:desafio6etapa/screens/home_treinador.dart';
+import 'package:desafio6etapa/screens/perfil_atleta.dart';
+import 'package:desafio6etapa/screens/perfil_treinador.dart';
+import 'package:desafio6etapa/screens/registro_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,30 +14,29 @@ class Atletas extends StatefulWidget {
 }
 
 class _AtletasState extends State<Atletas> {
-  int _selectedIndex = 1; // Índice da aba selecionada
+  int _selectedIndex = 1;
 
-  // Método para lidar com a troca de aba
+
   void _onItemTapped(int index) {
     if (index == 0) {
-      // Navegar para a primeira tela
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => HomeTreinador()),
       );
     } else if (index == 1) {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Atletas()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => Atletas()),
       );
     } else if (index == 2) {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilTreinador()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => PerfilTreinador()),
       );
     }
-    // Atualize o índice selecionado
     setState(() {
       _selectedIndex = index;
     });
@@ -45,7 +44,7 @@ class _AtletasState extends State<Atletas> {
 
 
   void _salvar() {
-    // Adicione aqui a lógica para efetuar o login
+
   }
 
   @override
@@ -60,11 +59,11 @@ class _AtletasState extends State<Atletas> {
           SliverAppBar(
             backgroundColor: Colors.white,
             elevation: 0.0,
-            floating: false, // Define se o app bar deve aparecer ao rolar para cima
-            pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
+            floating: false,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true, // Centralizar o título
-              titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
+              centerTitle: true,
+              titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
                 'Atletas',
                 style: TextStyle(
@@ -74,7 +73,7 @@ class _AtletasState extends State<Atletas> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -91,8 +90,8 @@ class _AtletasState extends State<Atletas> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           border: Border.all(
-                            color: Color(0xFF0F2F7A), // Cor da borda
-                            width: 1.0, // Tamanho da borda
+                            color: Color(0xFF0F2F7A),
+                            width: 1.0,
                           ),
                         ),
                         child: Row(
@@ -100,8 +99,8 @@ class _AtletasState extends State<Atletas> {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 16.0),
                               child: Icon(
-                                Icons.search, // Ícone de lupa
-                                color: Color(0xFF0C2172), // Cor do ícone
+                                Icons.search,
+                                color: Color(0xFF0C2172),
                               ),
                             ),
                             Expanded(
@@ -117,7 +116,7 @@ class _AtletasState extends State<Atletas> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xFF0C2172),
                                   ),
-                                  border: InputBorder.none, // Remove a borda padrão do TextField
+                                  border: InputBorder.none,
                                 ),
                               ),
                             ),
@@ -130,37 +129,36 @@ class _AtletasState extends State<Atletas> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroAtleta()));
                         },
                         child: Container(
-                          height: 90, // Altura do retângulo externo
+                          height: 90, //
                           decoration: BoxDecoration(
-                            color: Color(0xFF0C2172), // Cor de fundo do retângulo externo
-                            borderRadius: BorderRadius.circular(10), // Border radius de 10
+                            color: Color(0xFF0C2172),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Row(
                             children: [
                               Container(
-                                width: 60, // Largura da imagem
-                                height: 60, // Altura da imagem
-                                margin: EdgeInsets.only(left: 15), // Espaço de 15px do início do retângulo e 20px do topo
+                                width: 60,
+                                height: 60,
+                                margin: EdgeInsets.only(left: 15),
                                 decoration: BoxDecoration(
-                                  color: Colors.yellow, // Cor de fundo da imagem
-                                  // Aqui você pode adicionar a imagem em vez de uma cor
+                                  color: Colors.yellow,
                                 ),
                               ),
                               SizedBox(width: 20),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 20), // Espaço de 20px do topo do retângulo azul
+                                  SizedBox(height: 20),
                                   Text(
-                                    'Nome do Atleta', // Nome do Atleta
+                                    'Nome do Atleta',
                                     style: TextStyle(
                                       fontFamily: 'Open Sans',
-                                      fontSize: 15 * ffem, // Tamanho da fonte para o nome
-                                      fontWeight: FontWeight.bold, // Fonte em negrito para o nome
-                                      color: Colors.yellow, // Cor do nome do atleta
+                                      fontSize: 15 * ffem,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.yellow,
                                     ),
                                   ),
-                                  SizedBox(height: 15), // Espaço de 15px entre o nome do atleta e o texto "Atleta desde"
+                                  SizedBox(height: 15),
                                   Text(
                                     'Atleta desde: 08/2020',
                                     style: TextStyle(
@@ -172,16 +170,16 @@ class _AtletasState extends State<Atletas> {
                                   ),
                                 ],
                               ),
-                              Spacer(), // Isso cria um espaço flexível que empurra o ícone para a direita
+                              Spacer(), //
                               SvgPicture.asset(
-                                'assets/avancar.svg', // Caminho para o arquivo SVG
+                                'assets/avancar.svg',
                               ),
                               SizedBox(width: 25),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 40 * ffem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 40 * ffem),
                     ],
                   ),
                 ),

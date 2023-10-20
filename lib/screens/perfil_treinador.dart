@@ -1,6 +1,7 @@
 import 'package:desafio6etapa/screens/atletas.dart';
-import 'package:desafio6etapa/screens/homeAtleta.dart';
-import 'package:desafio6etapa/screens/homeTreinador.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:desafio6etapa/screens/home_treinador.dart';
+import 'package:desafio6etapa/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,33 @@ import '../widgets/barra_navegacao2.dart';
 class PerfilTreinador extends StatefulWidget {
   @override
   _PerfilTreinadorState createState() => _PerfilTreinadorState();
+}
+
+void _showLogoutConfirmationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Confirmar Logout'),
+        content: Text('Tem certeza de que deseja sair?'),
+        actions: [
+          TextButton(
+            child: Text('Cancelar'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Sair'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class _PerfilTreinadorState extends State<PerfilTreinador> {
@@ -25,26 +53,28 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
       // Navegar para a primeira tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => HomeTreinador()),
       );
     } else if (index == 1) {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Atletas()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => Atletas()),
       );
     } else if (index == 2) {
       // Navegar para a segunda tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilTreinador()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => PerfilTreinador()),
       );
     }
     // Atualize o índice selecionado
     setState(() {
       _selectedIndex = index;
     });
-  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +99,17 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
             ),
             floating: false, // Define se o app bar deve aparecer ao rolar para cima
             pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.logout,
+                  color: Colors.red, // Defina a cor do ícone como vermelho
+                ),
+                onPressed: () {
+                  _showLogoutConfirmationDialog(context);
+                },
+              ),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true, // Centralizar o título
               titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
@@ -81,7 +122,7 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -305,5 +346,12 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
         onItemTapped: _onItemTapped,
       ),
     );
+  }
+}
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
   }
 }

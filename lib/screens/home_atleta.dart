@@ -1,4 +1,5 @@
-import 'package:desafio6etapa/screens/perfilAtleta.dart';
+import 'package:desafio6etapa/screens/perfil_atleta.dart';
+import 'package:desafio6etapa/screens/registroTreino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/barra_navegacao.dart';
@@ -100,24 +101,27 @@ class HomeAtleta extends StatefulWidget {
 
 class _HomeAtletaState extends State<HomeAtleta> {
 
-  int _selectedIndex = 0; // Índice da aba selecionada
+  int _selectedIndex = 0;
 
-  // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
     if (index == 0) {
-      // Navegar para a primeira tela
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomeAtleta()), // Substitua 'Tela1' pela tela que deseja exibir
       );
     } else if (index == 1) {
-      // Navegar para a segunda tela
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => RegistroTreino()), // Substitua 'Tela2' pela tela que deseja exibir
+      );
+    }
+
+    else if (index == 2) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
       );
     }
-    // Atualize o índice selecionado
     setState(() {
       _selectedIndex = index;
     });
@@ -182,7 +186,6 @@ class _HomeAtletaState extends State<HomeAtleta> {
               ),
             ),
             SizedBox(height: 20.0),
-            // Usar um Stack para envolver o retângulo azul e cinza
             Stack(
               children: [
                 Container(
@@ -299,7 +302,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                     ),
                   ],
                 ),
-                SizedBox(height: 40.0), // Espaçamento de 20 pixels entre o Row e o SVG
+                SizedBox(height: 40.0),
                 Center(
                   child: SvgPicture.asset(
                     'assets/grafico.svg',

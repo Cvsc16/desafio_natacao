@@ -1,7 +1,7 @@
-import 'package:desafio6etapa/screens/esqueceuSenha.dart';
-import 'package:desafio6etapa/screens/homeADM.dart';
-import 'package:desafio6etapa/screens/homeAtleta.dart';
-import 'package:desafio6etapa/screens/homeTreinador.dart';
+import 'package:desafio6etapa/screens/esqueceu_senha.dart';
+import 'package:desafio6etapa/screens/home_ADM.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:desafio6etapa/screens/home_treinador.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
       backgroundColor: Color(0xFF0b2d78),
       body: SingleChildScrollView(
         child: Stack(
-          children: [ // Container com a imagem de fundo principal
+          children: [
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(

@@ -1,5 +1,5 @@
 import 'package:desafio6etapa/screens/cronometro.dart';
-import 'package:desafio6etapa/screens/homeAtleta.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,15 +32,21 @@ class _RegistroTreinoState extends State<RegistroTreino> {
               child: IconButton(
                 icon: SvgPicture.asset('assets/ic_volta.svg'),
                 onPressed: () {
-                  Navigator.pop(context);
+                  // Navegar para a tela HomeAtleta
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeAtleta(),
+                    ),
+                  );
                 },
               ),
             ),
-            floating: false, // Define se o app bar deve aparecer ao rolar para cima
-            pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
+            floating: false,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true, // Centralizar o título
-              titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
+              titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
                 'Registrar Treino',
                 style: TextStyle(
@@ -50,7 +56,7 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -74,7 +80,7 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                             fontWeight: FontWeight.w400,
                             color: Color(0xFF0C2172),
                           ),
-                          border: InputBorder.none, // Remove a borda padrão do TextField
+                          border: InputBorder.none,
                         ),
                       ),
                       Container(
@@ -82,8 +88,8 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5.0),
                           border: Border.all(
-                            color: Color(0xFF0F2F7A), // Cor da borda
-                            width: 1.0, // Tamanho da borda
+                            color: Color(0xFF0F2F7A),
+                            width: 1.0,
                           ),
                         ),
                         child: Row(
@@ -108,7 +114,7 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                                     fontWeight: FontWeight.w400,
                                     color: Color(0xFF0C2172),
                                   ),
-                                  border: InputBorder.none, // Remove a borda padrão do TextField
+                                  border: InputBorder.none,
                                 ),
                               ),
                             ),
@@ -146,7 +152,7 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 20 * ffem), // Espaço entre os campos
+                          SizedBox(width: 20 * ffem),
                           Expanded(
                             child: TextField(
                               style: TextStyle(
@@ -180,7 +186,7 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                       ),
                       SizedBox(height: 20 * ffem),
 
-                      SizedBox(height: 40 * ffem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 40 * ffem),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
@@ -188,10 +194,10 @@ class _RegistroTreinoState extends State<RegistroTreino> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => Cronometro()));
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF0C2172), // Cor de fundo amarela
-                            onPrimary: Colors.yellow, // Cor do texto "#0C2172"
+                            primary: Color(0xFF0C2172),
+                            onPrimary: Colors.yellow,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0), // Raio da borda de 50
+                              borderRadius: BorderRadius.circular(50.0),
                             ),
                           ),
                           child: Padding(

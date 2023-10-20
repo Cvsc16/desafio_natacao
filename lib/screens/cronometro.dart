@@ -1,4 +1,4 @@
-import 'package:desafio6etapa/screens/homeAtleta.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -255,17 +255,17 @@ class _CronometroState extends State<Cronometro> {
                         ],
                       ),
 
-                      SizedBox(height: 40 * ffem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 40 * ffem),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
-                          onPressed: _salvar, // Chama a função ao clicar no botão
+                          onPressed: _salvar,
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF0C2172) , // Cor de fundo amarela
-                            onPrimary: Colors.yellow , // Cor do texto "#0C2172"
+                            primary: Color(0xFF0C2172) ,
+                            onPrimary: Colors.yellow ,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  50.0), // Raio da borda de 50
+                                  50.0),
                             ),
                           ),
                           child: Padding(
@@ -281,21 +281,20 @@ class _CronometroState extends State<Cronometro> {
                         ),
                       ),
 
-                      SizedBox(height: 20 * ffem), // Espaço adicional entre o botão "Registrar Volta" e os próximos botões
+                      SizedBox(height: 20 * ffem),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround, // Alinhar os botões horizontalmente com espaço entre eles
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              // Adicione a lógica para o botão "Parar" aqui
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.red, // Cor de fundo vermelha para o botão "Parar"
-                              onPrimary: Colors.white, // Cor do texto para o botão "Parar"
+                              primary: Colors.red,
+                              onPrimary: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0), // Raio da borda de 50
+                                borderRadius: BorderRadius.circular(50.0),
                               ),
-                              fixedSize: Size(150, 50), // Define a largura e altura desejadas
+                              fixedSize: Size(150, 50),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(16.0),
@@ -311,15 +310,15 @@ class _CronometroState extends State<Cronometro> {
                           SizedBox(width: 20 * ffem),
                           ElevatedButton(
                             onPressed: () {
-                              // Adicione a lógica para o botão "Retomar" aqui
+
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.green, // Cor de fundo verde para o botão "Retomar"
-                              onPrimary: Colors.white, // Cor do texto para o botão "Retomar"
+                              primary: Colors.green,
+                              onPrimary: Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0), // Raio da borda de 50
+                                borderRadius: BorderRadius.circular(50.0),
                               ),
-                              fixedSize: Size(150, 50), // Define a largura e altura desejadas
+                              fixedSize: Size(150, 50),
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(16.0),
@@ -335,7 +334,7 @@ class _CronometroState extends State<Cronometro> {
                         ],
                       ),
 
-                      SizedBox(height: 40 * ffem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 40 * ffem),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(

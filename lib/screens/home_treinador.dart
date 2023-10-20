@@ -1,7 +1,7 @@
 import 'package:desafio6etapa/screens/atletas.dart';
 import 'package:desafio6etapa/screens/cadastro.dart';
-import 'package:desafio6etapa/screens/perfilAtleta.dart';
-import 'package:desafio6etapa/screens/perfilTreinador.dart';
+import 'package:desafio6etapa/screens/perfil_atleta.dart';
+import 'package:desafio6etapa/screens/perfil_treinador.dart';
 import 'package:desafio6etapa/screens/registroTreino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -111,22 +111,22 @@ class _HomeTreinadorState extends State<HomeTreinador> {
       // Navegar para a primeira tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeTreinador()), // Substitua 'Tela1' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => HomeTreinador()),
       );
     } else if (index == 1) {
-      // Navegar para a segunda tela
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Atletas()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => Atletas()),
       );
     } else if (index == 2) {
-      // Navegar para a segunda tela
+
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilTreinador()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => PerfilTreinador()),
       );
     }
-    // Atualize o índice selecionado
+
     setState(() {
       _selectedIndex = index;
     });
