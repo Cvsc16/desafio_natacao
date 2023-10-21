@@ -1,6 +1,6 @@
 import 'package:desafio6etapa/screens/home_ADM.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
-import 'package:desafio6etapa/screens/usuariosConsulta.dart';
+import 'package:desafio6etapa/screens/usuarios_consulta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';

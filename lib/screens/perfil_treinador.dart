@@ -340,9 +340,3 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
     );
   }
 }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
