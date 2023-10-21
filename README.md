@@ -1,16 +1,20 @@
 # desafio6etapa
 
-A new Flutter project.
+Caio Vinicius de Souza Costa - 836467<br>
+Diogo Vitor Oliveira Leme - 836846<br>
 
-## Getting Started
+**Usuários padrões para acesso as telas da avaliação parcial:**
 
-This project is a starting point for a Flutter application.
+**Tela Login:**<br><br>
 
-A few resources to get you started if this is your first Flutter project:
+**Atleta:**<br>
+**Email:** atleta@gmail.com<br>
+**Senha:** atleta123
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Treinador:**<br>
+**Email:** treinador@gmail.com<br>
+**Senha:** treinador123
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Administrador:**<br>
+**Email:** adm@gmail.com<br>
+**Senha:** adm123
