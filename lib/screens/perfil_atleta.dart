@@ -4,7 +4,7 @@ import 'package:desafio6etapa/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao.dart';
+import '../widgets/barra_navegacao_atleta.dart';
 
 class PerfilAtleta extends StatefulWidget {
   @override
@@ -103,7 +103,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -144,7 +144,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         obscureText: true,
                         decoration: InputDecoration(
@@ -172,7 +172,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         obscureText: true,
                         decoration: InputDecoration(
@@ -200,7 +200,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'Naturalidade',
@@ -310,17 +310,17 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20 * ffem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 20 * ffem),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
-                          onPressed: _salvar, // Chama a função ao clicar no botão
+                          onPressed: _salvar,
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF0C2172) , // Cor de fundo amarela
-                            onPrimary: Colors.yellow, // Cor do texto "#0C2172"
+                            primary: Color(0xFF0C2172) ,
+                            onPrimary: Colors.yellow,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  50.0), // Raio da borda de 50
+                                  50.0),
                             ),
                           ),
                           child: Padding(

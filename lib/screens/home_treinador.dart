@@ -6,7 +6,7 @@ import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
 import 'package:desafio6etapa/screens/registro_treino_treinador.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/barra_navegacao2.dart';
+import '../widgets/barra_navegacao_treinador.dart';
 
 class Treino extends StatelessWidget {
   final String id_treino;

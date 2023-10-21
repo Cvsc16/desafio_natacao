@@ -196,7 +196,7 @@ class _EsqueceuSenhaState extends State<EsqueceuSenha> {
                 ],
               ),
             ),
-            SizedBox(height: isKeyboardVisible ? 10.0 : 0.0), // Espaço extra para acomodar o teclado
+            SizedBox(height: isKeyboardVisible ? 10.0 : 0.0),
           ],
         ),
       ),

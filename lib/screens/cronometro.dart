@@ -99,11 +99,11 @@ class _CronometroState extends State<Cronometro> {
                 },
               ),
             ),
-            floating: false, // Define se o app bar deve aparecer ao rolar para cima
-            pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
+            floating: false,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true, // Centralizar o título
-              titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
+              centerTitle: true,
+              titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
                 'Cronômetro',
                 style: TextStyle(
@@ -113,7 +113,7 @@ class _CronometroState extends State<Cronometro> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -133,7 +133,7 @@ class _CronometroState extends State<Cronometro> {
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF0C2172),
                           ),
-                        textAlign: TextAlign.center, // Centraliza o texto horizontalmente
+                        textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 30.0),
                       Stack(
@@ -220,7 +220,7 @@ class _CronometroState extends State<Cronometro> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 20 * ffem), // Espaço entre os campos
+                          SizedBox(width: 20 * ffem),
                           Expanded(
                             child: TextField(
                               style: TextStyle(
@@ -337,13 +337,13 @@ class _CronometroState extends State<Cronometro> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
-                          onPressed: _salvar, // Chama a função ao clicar no botão
+                          onPressed: _salvar,
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.yellow , // Cor de fundo amarela
-                            onPrimary: Color(0xFF0C2172) , // Cor do texto "#0C2172"
+                            primary: Colors.yellow ,
+                            onPrimary: Color(0xFF0C2172) ,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  50.0), // Raio da borda de 50
+                                  50.0),
                             ),
                           ),
                           child: Padding(

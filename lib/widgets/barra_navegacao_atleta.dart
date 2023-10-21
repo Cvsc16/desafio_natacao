@@ -13,12 +13,12 @@ class CustomBottomNavigationAtleta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60, // Altura desejada para a BottomNavigationBar
+      height: 60, 
       child: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(top: 10.0), // Espaço superior desejado
+              padding: EdgeInsets.only(top: 10.0),
               child: SvgPicture.asset(
                 selectedIndex == 0
                     ? 'assets/inicio_selecionado.svg'
@@ -27,11 +27,11 @@ class CustomBottomNavigationAtleta extends StatelessWidget {
                 height: 20,
               ),
             ),
-            label: '', // Esta propriedade está definida como uma string vazia
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(top: 0.0), // Espaço superior desejado
+              padding: EdgeInsets.only(top: 0.0),
               child: SvgPicture.asset(
                 selectedIndex == 1
                     ? 'assets/cronometro_selecionado.svg'
@@ -40,11 +40,11 @@ class CustomBottomNavigationAtleta extends StatelessWidget {
                 height: 30,
               ),
             ),
-            label: '', // Esta propriedade está definida como uma string vazia
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Padding(
-              padding: EdgeInsets.only(top: 10.0), // Espaço superior desejado
+              padding: EdgeInsets.only(top: 10.0),
               child: SvgPicture.asset(
                 selectedIndex == 2
                     ? 'assets/perfil_selecionado.svg'
@@ -53,7 +53,7 @@ class CustomBottomNavigationAtleta extends StatelessWidget {
                 height: 20,
               ),
             ),
-            label: '', // Esta propriedade está definida como uma string vazia
+            label: '',
           ),
         ],
         currentIndex: selectedIndex,

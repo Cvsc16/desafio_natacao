@@ -11,11 +11,11 @@ import 'screens/registro_treino_atleta.dart';
 import 'screens/cronometro.dart';
 import 'screens/atletas.dart';
 import 'screens/registro_atleta.dart';
-import 'screens/home_ADM.dart';
+import 'screens/home_adm.dart';
 import 'screens/novo_usuario.dart';
 import 'screens/informacoes_complementares.dart';
 
-import 'widgets/barra_navegacao.dart';
+import 'widgets/barra_navegacao_atleta.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(

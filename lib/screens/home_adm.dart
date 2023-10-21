@@ -4,7 +4,7 @@ import 'package:desafio6etapa/screens/novo_usuario.dart';
 import 'package:desafio6etapa/screens/perfil_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/barra_navegacao3.dart';
+import '../widgets/barra_navegacao_adm.dart';
 
 
 

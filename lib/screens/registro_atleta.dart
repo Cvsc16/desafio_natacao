@@ -16,15 +16,15 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
           .of(context)
           .size
           .width * 0.28,
-      // Defina a largura desejada
+
       height: MediaQuery
           .of(context)
           .size
           .width * 0.12,
       // Defina a largura desejada
       decoration: BoxDecoration(
-        color: Color(0xFF0F2F7A), // Cor de fundo azul
-        borderRadius: BorderRadius.circular(5.0), // Raio da borda de 5
+        color: Color(0xFF0F2F7A),
+        borderRadius: BorderRadius.circular(5.0),
       ),
       padding: EdgeInsets.only(left: 8.0),
       child: Row(
@@ -41,7 +41,7 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
           ),
           Icon(
             Icons.arrow_drop_down,
-            color: Colors.yellow, // Cor da seta amarela
+            color: Colors.yellow,
           ),
         ],
       ),
@@ -49,7 +49,7 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
   }
 
   void _salvar() {
-    // Adicione aqui a lógica para efetuar o login
+
   }
 
   @override
@@ -90,7 +90,7 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: SizedBox(height: 10.0),

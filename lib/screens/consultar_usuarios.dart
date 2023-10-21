@@ -1,10 +1,10 @@
-import 'package:desafio6etapa/screens/home_ADM.dart';
+import 'package:desafio6etapa/screens/home_adm.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/usuarios_consulta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao3.dart';
+import '../widgets/barra_navegacao_adm.dart';
 
 class ConsultarUsuarios extends StatefulWidget {
   @override

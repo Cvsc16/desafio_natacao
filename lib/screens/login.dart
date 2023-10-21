@@ -1,5 +1,5 @@
 import 'package:desafio6etapa/screens/esqueceu_senha.dart';
-import 'package:desafio6etapa/screens/home_ADM.dart';
+import 'package:desafio6etapa/screens/home_adm.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/home_treinador.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +81,6 @@ class _LoginState extends State<Login> {
         );
       }
     } else {
-      // Exibir uma mensagem de erro, pois o login falhou
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -122,8 +121,8 @@ class _LoginState extends State<Login> {
                   fit: BoxFit.cover,
                 ),
               ),
-              height: MediaQuery.of(context).size.height, // Defina a altura para ocupar toda a tela
-              width: MediaQuery.of(context).size.width, // Defina a largura para ocupar toda a tela
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
             ),
             Align(
               alignment: Alignment.topCenter,
@@ -164,9 +163,9 @@ class _LoginState extends State<Login> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       TextField(
-                        controller: emailController, // Use o controlador aqui
+                        controller: emailController,
                         style: TextStyle(
-                          color: Colors.white, // Define a cor do texto digitado
+                          color: Colors.white,
                         ),
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -186,9 +185,9 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 20*fem),
                       TextField(
-                        controller: passwordController, // Use o controlador aqui
+                        controller: passwordController,
                         style: TextStyle(
-                          color: Colors.white, // Define a cor do texto digitado
+                          color: Colors.white,
                         ),
                         obscureText: _obscureText,
                         decoration: InputDecoration(
@@ -214,9 +213,9 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30*fem), // Espaço adicional para o texto "Esqueci minha senha"
+                      SizedBox(height: 30*fem),
                       GestureDetector(
-                        onTap: _forgotPassword, // Chama a função ao clicar no texto
+                        onTap: _forgotPassword,
                         child: Text(
                           'Esqueci minha senha',
                           style: TextStyle(
@@ -225,19 +224,19 @@ class _LoginState extends State<Login> {
                             fontWeight: FontWeight.w500,
                             color: Colors.yellow,
                           ),
-                          textAlign: TextAlign.right, // Alinha o texto à direita
+                          textAlign: TextAlign.right,
                         ),
                       ),
-                      SizedBox(height: 40*fem), // Espaço adicional para o botão "Login"
+                      SizedBox(height: 40*fem),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
                           onPressed: () => _login(emailController.text, passwordController.text),
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.yellow, // Cor de fundo amarela
-                            onPrimary: Color(0xFF0C2172), // Cor do texto "#0C2172"
+                            primary: Colors.yellow,
+                            onPrimary: Color(0xFF0C2172),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0), // Raio da borda de 50
+                              borderRadius: BorderRadius.circular(50.0),
                             ),
                           ),
                           child: Padding(

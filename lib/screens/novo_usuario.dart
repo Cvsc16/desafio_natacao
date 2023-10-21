@@ -11,8 +11,8 @@ class NovoUsuario extends StatefulWidget {
 
 class _NovoUsuarioState extends State<NovoUsuario> {
 
-  void _salvar() {
-    // Adicione aqui a lógica para efetuar o login
+  void _avancar() {
+
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:desafio6etapa/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao2.dart';
+import '../widgets/barra_navegacao_treinador.dart';
 
 class PerfilTreinador extends StatefulWidget {
   @override

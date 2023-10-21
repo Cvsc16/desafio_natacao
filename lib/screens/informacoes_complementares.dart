@@ -2,7 +2,7 @@ import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao.dart';
+import '../widgets/barra_navegacao_atleta.dart';
 
 class InformacoesComplementares extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class InformacoesComplementares extends StatefulWidget {
 class _InformacoesComplementaresState extends State<InformacoesComplementares> {
 
   void _salvar() {
-    // Adicione aqui a lógica para efetuar o login
+
   }
 
   @override
@@ -262,7 +262,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'UF',
@@ -289,7 +289,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'Nome da mãe',
@@ -316,7 +316,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'Nome do pai',
@@ -343,7 +343,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'CLB de Origem',
@@ -370,7 +370,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'EMP atleta',
@@ -397,7 +397,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'CVM atleta',
@@ -424,7 +424,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'ALG atleta',
@@ -451,7 +451,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'EST atleta',
@@ -478,7 +478,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       SizedBox(height: 20 * ffem),
                       TextField(
                         style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
+                          color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
                           labelText: 'PRV atleta',
@@ -506,13 +506,13 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
-                          onPressed: _salvar, // Chama a função ao clicar no botão
+                          onPressed: _salvar,
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF0C2172) , // Cor de fundo amarela
-                            onPrimary: Colors.yellow, // Cor do texto "#0C2172"
+                            primary: Color(0xFF0C2172) ,
+                            onPrimary: Colors.yellow,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
-                                  50.0), // Raio da borda de 50
+                                  50.0),
                             ),
                           ),
                           child: Padding(

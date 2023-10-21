@@ -2,7 +2,7 @@ import 'package:desafio6etapa/screens/perfil_atleta.dart';
 import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/barra_navegacao.dart';
+import '../widgets/barra_navegacao_atleta.dart';
 
 class Treino extends StatelessWidget {
   final String id_treino;
@@ -107,19 +107,19 @@ class _HomeAtletaState extends State<HomeAtleta> {
     if (index == 0) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomeAtleta()), // Substitua 'Tela1' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => HomeAtleta()),
       );
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegistroTreinoAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => RegistroTreinoAtleta()),
       );
     }
 
     else if (index == 2) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => PerfilAtleta()),
       );
     }
     setState(() {
@@ -283,7 +283,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                               fontSize: 12.0,
                               fontFamily: 'Open Sans',
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F2F7A), // Cor padrão
+                              color: Color(0xFF0F2F7A),
                             ),
                           ),
 
@@ -294,7 +294,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                               fontSize: 12.0,
                               fontFamily: 'Open Sans',
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F2F7A), // Cor padrão
+                              color: Color(0xFF0F2F7A),
                             ),
                           ),
                         ],
