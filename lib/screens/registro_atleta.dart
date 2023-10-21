@@ -110,7 +110,7 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
           ),
       SliverToBoxAdapter(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -127,7 +127,6 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
                 Stack(
                   children: [
                     Container(
-                      width: 320.0,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: Color(0xFF0C2172),
@@ -234,16 +233,12 @@ class _RegistroAtletaState extends State<RegistroAtleta> {
                             ],
                           ),
                         ),
-                        SizedBox(width: 20.0),
                       ],
                     ),
                     SizedBox(height: 40.0),
-                    Padding(
-                      padding: EdgeInsets.only(right: 20.0),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/grafico.svg',
-                        ),
+                    Center(
+                      child: SvgPicture.asset(
+                        'assets/grafico.svg',
                       ),
                     ),
                   ],

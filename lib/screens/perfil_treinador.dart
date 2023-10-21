@@ -47,7 +47,6 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
 
   int _selectedIndex = 2; // Índice da aba selecionada
 
-  // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
     if (index == 0) {
       // Navegar para a primeira tela
@@ -56,22 +55,24 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
         MaterialPageRoute(builder: (context) => HomeTreinador()),
       );
     } else if (index == 1) {
-      // Navegar para a segunda tela
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Atletas()),
       );
     } else if (index == 2) {
-      // Navegar para a segunda tela
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => PerfilTreinador()),
       );
     }
-    // Atualize o índice selecionado
+
     setState(() {
       _selectedIndex = index;
     });
+  }
+
 
 
 
@@ -88,15 +89,6 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
           SliverAppBar(
             backgroundColor: Colors.white,
             elevation: 0.0,
-            leading: Container(
-              padding: EdgeInsets.only(left: 20.0),
-              child: IconButton(
-                icon: SvgPicture.asset('assets/ic_volta.svg'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             floating: false, // Define se o app bar deve aparecer ao rolar para cima
             pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
             actions: [
@@ -354,4 +346,3 @@ class _PerfilTreinadorState extends State<PerfilTreinador> {
     // TODO: implement build
     throw UnimplementedError();
   }
-}

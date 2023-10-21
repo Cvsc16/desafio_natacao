@@ -139,7 +139,6 @@ class _CronometroState extends State<Cronometro> {
                       Stack(
                         children: [
                           Container(
-                            width: 320.0,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: Color(0xFF0C2172),

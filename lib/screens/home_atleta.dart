@@ -1,5 +1,5 @@
 import 'package:desafio6etapa/screens/perfil_atleta.dart';
-import 'package:desafio6etapa/screens/registroTreino.dart';
+import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/barra_navegacao.dart';
@@ -112,7 +112,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegistroTreino()), // Substitua 'Tela2' pela tela que deseja exibir
+        MaterialPageRoute(builder: (context) => RegistroTreinoAtleta()), // Substitua 'Tela2' pela tela que deseja exibir
       );
     }
 
@@ -244,7 +244,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                         color: Color(0xFF0F2F7A),
                       ),
                     ),
-                    Spacer(), // Isso fará com que o retângulo ocupe o espaço restante à direita
+                    Spacer(),
                     Container(
                       width: 140.0,
                       height: 30.0,
@@ -253,7 +253,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                         color: Color(0xFFE3E3E3),
                       ),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround, // Alinhar os textos horizontalmente no espaço disponível
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           // Valor "50m"
                           Container(
@@ -261,7 +261,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                             height: 20.0,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5.0),
-                              color: Color(0xFF0C2172), // Cor azul de seleção
+                              color: Color(0xFF0C2172),
                             ),
                             child: Center(
                               child: Text(
@@ -270,7 +270,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                                   fontSize: 12.0,
                                   fontFamily: 'Open Sans',
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white, // Texto em branco para indicar seleção
+                                  color: Colors.white,
                                 ),
                               ),
                             ),

@@ -2,7 +2,8 @@ import 'package:desafio6etapa/screens/atletas.dart';
 import 'package:desafio6etapa/screens/cadastro.dart';
 import 'package:desafio6etapa/screens/perfil_atleta.dart';
 import 'package:desafio6etapa/screens/perfil_treinador.dart';
-import 'package:desafio6etapa/screens/registroTreino.dart';
+import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
+import 'package:desafio6etapa/screens/registro_treino_treinador.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/barra_navegacao2.dart';
@@ -105,7 +106,6 @@ class HomeTreinador extends StatefulWidget {
 class _HomeTreinadorState extends State<HomeTreinador> {
   int _selectedIndex = 0; // Índice da aba selecionada
 
-  // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
     if (index == 0) {
       // Navegar para a primeira tela
@@ -217,7 +217,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroTreino()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroTreinoTreinador()));
                     },
                     child: Padding(
                       padding: EdgeInsets.only(right: 00.0),
@@ -260,7 +260,6 @@ class _HomeTreinadorState extends State<HomeTreinador> {
             Stack(
               children: [
                 Container(
-                  width: 320.0,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Color(0xFF0C2172),

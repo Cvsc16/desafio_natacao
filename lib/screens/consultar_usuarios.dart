@@ -54,15 +54,6 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
           SliverAppBar(
             backgroundColor: Colors.white,
             elevation: 0.0,
-            leading: Container(
-              padding: EdgeInsets.only(left: 20.0),
-              child: IconButton(
-                icon: SvgPicture.asset('assets/ic_volta.svg'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(

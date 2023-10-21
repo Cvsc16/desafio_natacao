@@ -67,123 +67,6 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410),
                         ),
                         decoration: InputDecoration(
-                          labelText: 'Endereço',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 17 * ffem,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF0C2172),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF2C2C2E),
-                              width: 2.0,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF0C2172),
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20 * ffem),
-                      TextField(
-                        style: TextStyle(
-                          color: Color(0xFF010410),
-                        ),
-                        decoration: InputDecoration(
-                          labelText: 'Bairro',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 17 * ffem,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF0C2172),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF2C2C2E),
-                              width: 2.0,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF0C2172),
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20 * ffem),
-                      TextField(
-                        style: TextStyle(
-                          color: Color(0xFF010410),
-                        ),
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Cep',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 17 * ffem,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF0C2172),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF2C2C2E),
-                              width: 2.0,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF0C2172),
-                              width: 2.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20 * ffem),
-                      TextField(
-                        style: TextStyle(
-                          color: Color(0xFF010410), // Define a cor do texto digitado
-                        ),
-                        decoration: InputDecoration(
-                          labelText: 'Naturalidade',
-                          labelStyle: TextStyle(
-                            fontFamily: 'Open Sans',
-                            fontSize: 17 * ffem,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF0C2172),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF2C2C2E),
-                              width: 2.0,
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF0C2172),
-                              width: 2.0,
-                            ),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              Icons.visibility,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20 * ffem),
-                      TextField(
-                        style: TextStyle(
-                          color: Color(0xFF010410),
-                        ),
-                        decoration: InputDecoration(
                           labelText: 'RG',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
@@ -237,8 +120,9 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                         style: TextStyle(
                           color: Color(0xFF010410),
                         ),
+                        obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'Sexo',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -265,7 +149,96 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'Endereço',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Bairro',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'CEP',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Cidade',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -292,7 +265,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'UF',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -319,7 +292,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'Nome da mãe',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -346,7 +319,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'Nome do pai',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -373,7 +346,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'CLB de Origem',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -400,7 +373,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'EMP atleta',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -427,7 +400,7 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'CVM atleta',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -454,7 +427,61 @@ class _InformacoesComplementaresState extends State<InformacoesComplementares> {
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
                         decoration: InputDecoration(
-                          labelText: 'CPF',
+                          labelText: 'ALG atleta',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'EST atleta',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: TextStyle(
+                          color: Color(0xFF010410), // Define a cor do texto digitado
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'PRV atleta',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,

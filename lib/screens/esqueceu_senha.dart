@@ -113,14 +113,14 @@ class _EsqueceuSenhaState extends State<EsqueceuSenha> {
               child: Padding(
                 padding: EdgeInsets.only(left: 40.0),
                 child: Text(
-                  'Esqueceu         sua senha?',
+                  'Esqueceu\nsua senha?',
                   style: TextStyle(
                     fontSize: 40.0,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF0C2172),
                   ),
-                ),
+                )
               ),
             ),
             SizedBox(height: 10.0),

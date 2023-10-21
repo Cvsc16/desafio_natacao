@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class RegistroTreino extends StatefulWidget {
+class RegistroTreinoAtleta extends StatefulWidget {
   @override
-  _RegistroTreinoState createState() => _RegistroTreinoState();
+  _RegistroTreinoAtletaState createState() => _RegistroTreinoAtletaState();
 }
 
-class _RegistroTreinoState extends State<RegistroTreino> {
+class _RegistroTreinoAtletaState extends State<RegistroTreinoAtleta> {
 
   void _salvar() {
     // Adicione aqui a lógica para efetuar o login

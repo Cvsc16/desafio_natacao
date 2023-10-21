@@ -7,7 +7,7 @@ import 'screens/home_atleta.dart';
 import 'screens/perfil_atleta.dart';
 import 'screens/cadastro.dart';
 import 'screens/home_treinador.dart';
-import 'screens/registroTreino.dart';
+import 'screens/registro_treino_atleta.dart';
 import 'screens/cronometro.dart';
 import 'screens/atletas.dart';
 import 'screens/registro_atleta.dart';

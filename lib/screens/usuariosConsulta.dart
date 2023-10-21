@@ -37,13 +37,13 @@ class _UsuariosConsultaState extends State<UsuariosConsulta> {
                 },
               ),
             ),
-            floating: false, // Define se o app bar deve aparecer ao rolar para cima
-            pinned: true, // Define se o app bar deve ser fixo no topo quando rolar para baixo
+            floating: false,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true, // Centralizar o título
-              titlePadding: EdgeInsets.only(top: 8.0), // Adicione o padding no topo do texto
+              centerTitle: true,
+              titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
-                'Atletas',
+                'Tipo de Usuário',
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 28.0,
@@ -51,7 +51,7 @@ class _UsuariosConsultaState extends State<UsuariosConsulta> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light, // Defina o brilho como light para o texto ficar branco
+            ), systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -106,7 +106,8 @@ class _UsuariosConsultaState extends State<UsuariosConsulta> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => PerfilUsuarios()));
                         },
-                        child: Container(
+                        child:
+                        Container(
                           height: 90, // Altura do retângulo externo
                           decoration: BoxDecoration(
                             color: Color(0xFF0C2172), // Cor de fundo do retângulo externo
@@ -129,7 +130,7 @@ class _UsuariosConsultaState extends State<UsuariosConsulta> {
                                 children: [
                                   SizedBox(height: 20), // Espaço de 20px do topo do retângulo azul
                                   Text(
-                                    'Nome do Atleta', // Nome do Atleta
+                                    'Nome do Usuario', // Nome do Atleta
                                     style: TextStyle(
                                       fontFamily: 'Open Sans',
                                       fontSize: 15 * ffem, // Tamanho da fonte para o nome
@@ -139,7 +140,7 @@ class _UsuariosConsultaState extends State<UsuariosConsulta> {
                                   ),
                                   SizedBox(height: 15), // Espaço de 15px entre o nome do atleta e o texto "Atleta desde"
                                   Text(
-                                    'Atleta desde: 08/2020',
+                                    'Cadastrado desde: 2020',
                                     style: TextStyle(
                                       fontFamily: 'Open Sans',
                                       fontSize: 12 * ffem,
@@ -149,14 +150,25 @@ class _UsuariosConsultaState extends State<UsuariosConsulta> {
                                   ),
                                 ],
                               ),
-                              Spacer(), // Isso cria um espaço flexível que empurra o ícone para a direita
+                              Spacer(),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red, // Cor do ícone definida como vermelho
+                                ),
+                                onPressed: () {
+                                  // Adicione a lógica para excluir o item aqui
+                                },
+                              ),// Isso cria um espaço flexível que empurra o ícone para a direita
+
+                              SizedBox(width: 10), // Espaço adicional entre o ícone de avançar e o botão de excluir
                               SvgPicture.asset(
                                 'assets/avancar.svg', // Caminho para o arquivo SVG
                               ),
-                              SizedBox(width: 25),
+                              SizedBox(width: 25), // Espaço adicional entre o botão de excluir e a borda direita
                             ],
                           ),
-                        ),
+                        )
                       ),
                       SizedBox(height: 40 * ffem), // Espaço adicional para o botão "Login"
                     ],

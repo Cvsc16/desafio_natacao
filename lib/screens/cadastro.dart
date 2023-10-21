@@ -39,11 +39,11 @@ class Cadastro extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/fundo_cadastro.png'),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fitHeight,
                     ),
                   ),
                   height: 400 * fem,
-                  width: double.infinity,
+                  width: MediaQuery.sizeOf(context).width,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 40 * fem, top: 360 * fem),
