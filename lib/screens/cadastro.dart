@@ -1,11 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Cadastro extends StatelessWidget {
-  void _cadastrar() {
-    // Adicione aqui a lógica para efetuar o cadastro
+  final String tipoUsuario;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Cadastro({required this.tipoUsuario});
+
+  void _cadastrar(String nome, String email, String dataNascimento, String naturalidade, String senha) async {
+    try {
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: senha,
+      );
+
+      await FirebaseFirestore.instance.collection('usuarios').doc(userCredential.user!.uid).set({
+        'nome': nome,
+        'email': email,
+        'dataNascimento': dataNascimento,
+        'naturalidade': naturalidade,
+        'tipoUsuario': tipoUsuario, // Certifique-se de ter acesso a essa variável na classe
+      });
+
+      // Navegar para a próxima tela após o cadastro bem-sucedido
+      // Aqui você pode decidir para onde redirecionar o usuário
+    } catch (e) {
+      print('Erro durante o cadastro: $e');
+    }
   }
+
+  TextEditingController nomeController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +100,7 @@ class Cadastro extends StatelessWidget {
                 children: [
                   SizedBox(height: 20 * ffem),
                   TextField(
+                    controller: nomeController,
                     style: TextStyle(
                       color: Color(0xFF010410),
                     ),
@@ -209,7 +239,9 @@ class Cadastro extends StatelessWidget {
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 0.0),
                     child: ElevatedButton(
-                      onPressed: _cadastrar,
+                      onPressed: _cadastrar (
+                          nomeController.text
+                      ),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFF0C2172),
                         onPrimary: Colors.yellow,

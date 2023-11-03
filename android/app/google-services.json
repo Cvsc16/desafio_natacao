@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426145841989",
+    "project_id": "desafio6semestre",
+    "storage_bucket": "desafio6semestre.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426145841989:android:fce207749395a54466342c",
+        "android_client_info": {
+          "package_name": "br.unaerp.desafio6etapa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrYhfKoCltZH9SKghIGnBXnhmxtzOIKRY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

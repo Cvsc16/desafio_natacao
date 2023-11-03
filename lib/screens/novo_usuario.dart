@@ -64,7 +64,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'atleta')));
                   },
                   child: Container(
                     height: 180.0,
@@ -125,7 +125,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'treinador')));
                   },
                   child: Container(
                     height: 180.0,
@@ -186,7 +186,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'administrador')));
                   },
                   child: Container(
                     height: 180.0,
