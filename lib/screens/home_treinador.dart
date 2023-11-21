@@ -30,18 +30,18 @@ class Treino extends StatelessWidget {
           children: [
             Text(
               id_treino,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 15.0,
                 fontFamily: 'Open Sans',
                 fontWeight: FontWeight.w600,
                 color: Colors.yellow,
               ),
             ),
-            SizedBox(width: 5.0),
+            const SizedBox(width: 5.0),
             Expanded(
               child: Text(
                 tipo_treino,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 15.0,
                   fontFamily: 'Open Sans',
                   fontWeight: FontWeight.bold,
@@ -50,10 +50,10 @@ class Treino extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20.0),
+              padding: const EdgeInsets.only(top: 20.0),
               child: Text(
                 tempo_treino,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 13.0,
                   fontFamily: 'Open Sans',
                   fontWeight: FontWeight.w600,
@@ -61,23 +61,23 @@ class Treino extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 20.0),
+            const SizedBox(width: 20.0),
           ],
         ),
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 15.0),
+              padding: const EdgeInsets.only(left: 15.0),
               child: Container(
                 width: 2.0,
                 height: 11.0,
                 color: Colors.yellow,
               ),
             ),
-            SizedBox(width: 5.0),
+            const SizedBox(width: 5.0),
             Text(
               data_treino,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12.0,
                 fontFamily: 'Open Sans',
                 fontWeight: FontWeight.w400,
@@ -86,13 +86,13 @@ class Treino extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
         Container(
           width: 280.0,
           height: 1.0,
-          color: Color(0xFF505050),
+          color: const Color(0xFF505050),
         ),
-        SizedBox(height: 10.0),
+        const SizedBox(height: 10.0),
       ],
     );
   }
@@ -137,23 +137,23 @@ class _HomeTreinadorState extends State<HomeTreinador> {
       width: MediaQuery.of(context).size.width * 0.2060, // Defina a largura desejada
       height: MediaQuery.of(context).size.width * 0.12, // Defina a largura desejada
       decoration: BoxDecoration(
-        color: Color(0xFF0F2F7A), // Cor de fundo azul
+        color: const Color(0xFF0F2F7A), // Cor de fundo azul
         borderRadius: BorderRadius.circular(5.0), // Raio da borda de 5
       ),
-      padding: EdgeInsets.only(left: 8.0),
+      padding: const EdgeInsets.only(left: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
               fontFamily: 'Open Sans',
               fontWeight: FontWeight.w600,
               color: Colors.white,
             ),
           ),
-          Icon(
+          const Icon(
             Icons.arrow_drop_down,
             color: Colors.yellow, // Cor da seta amarela
           ),
@@ -166,7 +166,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0C2172),
+        backgroundColor: const Color(0xFF0C2172),
         toolbarHeight: 4.0,
         elevation: 0.0,
       ),
@@ -175,7 +175,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
@@ -200,8 +200,8 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                 ),
               ],
             ),
-            SizedBox(height: 5.0),
-            Text(
+            const SizedBox(height: 5.0),
+            const Text(
               'Bons treinos!',
               style: TextStyle(
                 fontSize: 15.0,
@@ -210,7 +210,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                 color: Color(0xFF06113C),
               ),
             ),
-            SizedBox(height: 25.0),
+            const SizedBox(height: 25.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -220,24 +220,24 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroTreinoTreinador()));
                     },
                     child: Padding(
-                      padding: EdgeInsets.only(right: 00.0),
+                      padding: const EdgeInsets.only(right: 00.0),
                       child: SvgPicture.asset('assets/novo_treino.svg'),
                     ),
                   ),
                 ),
-                SizedBox(width: 20.0), // Espaço entre as imagens
+                const SizedBox(width: 20.0), // Espaço entre as imagens
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'atleta')));
                     },
                     child: SvgPicture.asset('assets/novo_atleta.svg'),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
-            Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'Melhores da Semana',
               style: TextStyle(
                 fontSize: 17.0,
@@ -246,7 +246,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                 color: Color(0xFF0F2F7A),
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -256,21 +256,21 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                 buildDropdownItem('Período'),
               ],
             ),
-            SizedBox(height: 30.0),
+            const SizedBox(height: 30.0),
             Stack(
               children: [
                 Container(
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: Color(0xFF0C2172),
+                    color: const Color(0xFF0C2172),
                     borderRadius: BorderRadius.circular(16.0),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       Padding(
-                        padding: EdgeInsets.only(left: 20.0),
+                        padding: const EdgeInsets.only(left: 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -295,7 +295,7 @@ class _HomeTreinadorState extends State<HomeTreinador> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                     ],
                   ),
                 ),

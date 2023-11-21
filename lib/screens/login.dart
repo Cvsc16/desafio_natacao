@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:desafio6etapa/screens/esqueceu_senha.dart';
 import 'package:desafio6etapa/screens/home_adm.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/home_treinador.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -22,87 +25,63 @@ class _LoginState extends State<Login> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => EsqueceuSenha()));
   }
 
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final usuarios = [
-    {
-      'email': 'atleta@gmail.com',
-      'password': 'atleta123',
-      'tipo': 'atleta',
-    },
-    {
-      'email': 'treinador@gmail.com',
-      'password': 'treinador123',
-      'tipo': 'treinador',
-    },
-    {
-      'email': 'adm@gmail.com',
-      'password': 'adm123',
-      'tipo': 'administrador',
-    },
-  ];
-
-  void _login(String email, String password) {
-    bool loginSuccessful = false;
-    String? userType = '';
-
-    final emailToUserType = {
-      'atleta@gmail.com': 'atleta',
-      'treinador@gmail.com': 'treinador',
-      'adm@gmail.com': 'administrador',
-    };
-
-    if (emailToUserType.containsKey(email)) {
-      final tipo = emailToUserType[email];
-      final usuario = usuarios.firstWhere((user) => user['email'] == email);
-
-      if (usuario['password'] == password) {
-        loginSuccessful = true;
-        userType = tipo;
-      }
-    }
-
-    if (loginSuccessful) {
-      if (userType == 'atleta') {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeAtleta()),
-        );
-      } else if (userType == 'treinador') {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeTreinador()),
-        );
-      } else if (userType == 'administrador') {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => HomeADM()),
-        );
-      }
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Erro de Login'),
-            content: Text('Os dados de login estão incorretos. Por favor, tente novamente.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Fechar'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
+  void _login(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
+
+      User? user = userCredential.user;
+
+      if (user != null && user.emailVerified) {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+        String userType = userDoc['tipoUsuario'];
+
+        if (userType == 'atleta') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeAtleta()),
+          );
+        } else if (userType == 'treinador') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeTreinador()),
+          );
+        } else if (userType == 'administrador') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeADM()),
+          );
+        }
+      } else {
+        _exibirToast('Por favor, verifique seu e-mail antes de fazer login.');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        _exibirToast('Os dados de login estão incorretos. Por favor, tente novamente.');
+      } else {
+        _exibirToast('Erro durante o login: $e');
+      }
     }
   }
 
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
-
+  void _exibirToast(String mensagem) {
+    Fluttertoast.showToast(
+      msg: mensagem,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Color(0xFF0b2d78),
+      textColor: Colors.yellow,
+      fontSize: 16.0,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

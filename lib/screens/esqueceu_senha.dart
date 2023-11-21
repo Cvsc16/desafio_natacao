@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class EsqueceuSenha extends StatefulWidget {
   @override
@@ -29,49 +31,29 @@ class _EsqueceuSenhaState extends State<EsqueceuSenha> {
     'adm@gmail.com': 'administrador',
   };
 
-  void _esqueceuSenha(String email) {
-    if (emailToUserType.containsKey(email)) {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-      final usuario = emailToUserType[email];
-      print('Email de verificação enviado para $email (Tipo de Usuário: $usuario)');
-      // Exibir um diálogo informando que o email de verificação foi enviado
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Email de Verificação Enviado'),
-            content: Text('Um email de verificação foi enviado para $email (Tipo de Usuário: $usuario).'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      // O email não está cadastrado no sistema
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Email Não Encontrado'),
-            content: Text('O email $email não está cadastrado no sistema.'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('OK'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+  void _esqueceuSenha(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+
+      _exibirToast('Email de redefinição de senha foi enviado para $email.');
+    } catch (e) {
+      print('Erro ao enviar email de redefinição de senha: $e');
+      _exibirToast('Email inserido não é valido');
     }
+  }
+
+  void _exibirToast(String mensagem) {
+    Fluttertoast.showToast(
+      msg: mensagem,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Color(0xFF0b2d78),
+      textColor: Colors.yellow,
+      fontSize: 16.0,
+    );
   }
 
   @override

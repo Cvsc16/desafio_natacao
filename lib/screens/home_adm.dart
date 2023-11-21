@@ -2,6 +2,7 @@ import 'package:desafio6etapa/screens/consultar_usuarios.dart';
 import 'package:desafio6etapa/screens/login.dart';
 import 'package:desafio6etapa/screens/novo_usuario.dart';
 import 'package:desafio6etapa/screens/perfil_atleta.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/barra_navegacao_adm.dart';
@@ -13,26 +14,39 @@ class HomeADM extends StatefulWidget {
   _HomeADMState createState() => _HomeADMState();
 }
 
+Future<void> _signOut(BuildContext context) async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    // Navegue para a tela de login ou qualquer outra tela desejada após o logout
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+  } catch (e) {
+    print('Erro durante o logout: $e');
+    // Lidar com erros, se necessário
+  }
+}
+
+// ...
+
 void _showLogoutConfirmationDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text('Confirmar Logout'),
-        content: Text('Tem certeza de que deseja sair?'),
-        actions: [
+        title: Text('Sair da Conta'),
+        content: Text('Tem certeza de que deseja sair da conta?'),
+        actions: <Widget>[
           TextButton(
-            child: Text('Cancelar'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); // Fecha o diálogo
             },
+            child: Text('Cancelar'),
           ),
           TextButton(
-            child: Text('Sair'),
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async {
+              await _signOut(context); // Chama o método para fazer logout
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
             },
+            child: Text('Sair'),
           ),
         ],
       );
@@ -45,9 +59,6 @@ class _HomeADMState extends State<HomeADM> {
 
   // Método para lidar com a troca de aba
   void _onItemTapped(int index) {
-    // Aqui você pode adicionar a lógica para lidar com a troca de aba
-    // Por exemplo, você pode usar um Navigator para navegar para diferentes telas com base na aba selecionada.
-    // Exemplo:
     if (index == 0) {
       // Navegar para a primeira tela
       Navigator.pushReplacement(

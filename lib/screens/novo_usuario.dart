@@ -1,4 +1,5 @@
 import 'package:desafio6etapa/screens/cadastro.dart';
+import 'package:desafio6etapa/screens/cadastro_adm.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,7 +65,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'atleta')));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CadastroAdm(tipoUsuario: 'atleta')));
                   },
                   child: Container(
                     height: 180.0,
@@ -125,7 +126,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'treinador')));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CadastroAdm(tipoUsuario: 'treinador')));
                   },
                   child: Container(
                     height: 180.0,
@@ -186,7 +187,7 @@ class _NovoUsuarioState extends State<NovoUsuario> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro(tipoUsuario: 'administrador')));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CadastroAdm(tipoUsuario: 'administrador')));
                   },
                   child: Container(
                     height: 180.0,

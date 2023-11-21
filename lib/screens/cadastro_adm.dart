@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:desafio6etapa/screens/home_adm.dart';
 import 'package:desafio6etapa/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,16 +7,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Cadastro extends StatefulWidget {
+class CadastroAdm extends StatefulWidget {
   final String tipoUsuario;
 
-  Cadastro({required this.tipoUsuario});
+  CadastroAdm({required this.tipoUsuario});
 
   @override
-  _CadastroState createState() => _CadastroState();
+  _CadastroAdmState createState() => _CadastroAdmState();
 }
 
-class _CadastroState extends State<Cadastro> {
+class _CadastroAdmState extends State<CadastroAdm> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _obscureText = true;
 
@@ -101,10 +102,8 @@ class _CadastroState extends State<Cadastro> {
       await _enviarEmailConfirmacao(email);
 
       _exibirToast('Cadastro realizado com sucesso! Um e-mail de confirmação foi enviado para $email.');
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomeADM()));
 
-      // Navegar para a próxima tela após o cadastro bem-sucedido
-      // Aqui você pode decidir para onde redirecionar o usuário
     } catch (e, stackTrace) {
       print('Erro durante o cadastro: $e');
       print('Stack trace: $stackTrace');

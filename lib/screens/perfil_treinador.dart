@@ -2,6 +2,7 @@ import 'package:desafio6etapa/screens/atletas.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/home_treinador.dart';
 import 'package:desafio6etapa/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,26 +13,39 @@ class PerfilTreinador extends StatefulWidget {
   _PerfilTreinadorState createState() => _PerfilTreinadorState();
 }
 
+Future<void> _signOut(BuildContext context) async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    // Navegue para a tela de login ou qualquer outra tela desejada após o logout
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+  } catch (e) {
+    print('Erro durante o logout: $e');
+    // Lidar com erros, se necessário
+  }
+}
+
+// ...
+
 void _showLogoutConfirmationDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text('Confirmar Logout'),
-        content: Text('Tem certeza de que deseja sair?'),
-        actions: [
+        title: Text('Sair da Conta'),
+        content: Text('Tem certeza de que deseja sair da conta?'),
+        actions: <Widget>[
           TextButton(
-            child: Text('Cancelar'),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(); // Fecha o diálogo
             },
+            child: Text('Cancelar'),
           ),
           TextButton(
-            child: Text('Sair'),
-            onPressed: () {
-              Navigator.of(context).pop();
+            onPressed: () async {
+              await _signOut(context); // Chama o método para fazer logout
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
             },
+            child: Text('Sair'),
           ),
         ],
       );
