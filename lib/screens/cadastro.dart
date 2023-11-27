@@ -66,6 +66,7 @@ class _CadastroState extends State<Cadastro> {
 
       if (tipoUsuario == 'atleta') {
         await FirebaseFirestore.instance.collection('atletas').doc(userDocRef.id).set({
+          'situacao_atleta': "não habilitado",
           'id_usuario': userDocRef,
           'nom_atleta': nome,
           'dtn_atleta': '...',
