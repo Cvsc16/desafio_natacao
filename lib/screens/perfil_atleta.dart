@@ -9,6 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../widgets/barra_navegacao_atleta.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PerfilAtleta extends StatefulWidget {
   @override
@@ -72,6 +74,13 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
   TextEditingController _alergiaController = TextEditingController();
   TextEditingController _estilosController = TextEditingController();
   TextEditingController _provasController = TextEditingController();
+
+  TextEditingController _img_atestado_atleta = TextEditingController();
+  TextEditingController _img_rg_atleta = TextEditingController();
+  TextEditingController _img_cpf_atleta = TextEditingController();
+  TextEditingController _img_foto_atleta = TextEditingController();
+  TextEditingController _img_comp_resid_atleta = TextEditingController();
+  TextEditingController _img_regulamento_atleta = TextEditingController();
 
   @override
   void initState() {
@@ -1130,6 +1139,33 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                         ),
                         decoration: InputDecoration(
                           labelText: 'Provas',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFF0C2172),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: const TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Imagem atestado',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
