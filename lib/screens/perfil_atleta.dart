@@ -3,6 +3,7 @@ import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/informacoes_complementares.dart';
 import 'package:desafio6etapa/screens/login.dart';
 import 'package:desafio6etapa/screens/registro_atleta.dart';
+import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,10 +12,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../widgets/barra_navegacao_atleta.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class PerfilAtleta extends StatefulWidget {
   @override
   _PerfilAtletaState createState() => _PerfilAtletaState();
+
 
 }
 final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -22,6 +25,74 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 String? _userID;
 
 class _PerfilAtletaState extends State<PerfilAtleta> {
+  final List<File?> _tempImages = List.filled(6, null);
+  final List<String> _caminhosDasImagens = List.filled(6, '');
+
+
+  final storageRef = FirebaseStorage.instance.ref();
+
+
+  Future<void> _selecionarImagem(int index, TextEditingController controller) async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+
+      setState(() {
+        _tempImages[index] = File(image.path);
+        _caminhosDasImagens[index] = _tempImages[index]!.path;
+        controller.text = _caminhosDasImagens[index];
+      });
+
+      // // Salvar a imagem no Firebase Storage
+      // await _uploadImageToStorage(_tempImages[index]!, index);
+
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<void> _uploadImageToStorage(File image, int index) async {
+    String userName = _nomeController.text;
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    try {
+      final userFolderRef = storageRef.child("atletas").child(userId);
+      String imageName;
+
+      switch (index) {
+        case 0:
+          imageName = "imgAtestado";
+          break;
+        case 1:
+          imageName = "imgRG";
+          break;
+        case 2:
+          imageName = "imgCPF";
+          break;
+        case 3:
+          imageName = "imgFoto";
+          break;
+        case 4:
+          imageName = "imgCompResidencia";
+          break;
+        case 5:
+          imageName = "imgRegulamento";
+          break;
+        default:
+          imageName = "imgDefault";
+      }
+
+      final imageNameWithTimestamp = "$imageName - $userName.text.jpg";
+      final imageRef = userFolderRef.child(imageNameWithTimestamp);
+
+      await imageRef.putFile(image);
+      final imageUrl = await imageRef.getDownloadURL();
+
+    } on FirebaseException catch (e) {
+      print("Erro ao fazer upload da imagem: $e");
+    }
+  }
+
+
   String _nomeOriginal = '';
   String _emailOriginal = '';
   String _dataNascimentoOriginal = '';
@@ -46,6 +117,13 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
   String _estilosOriginal = '';
   String _provasOriginal = '';
 
+  String _img_atestado_atletaOriginal  = '';
+  String _img_rg_atletaOriginal = '';
+  String _img_cpf_atletaOriginal = '';
+  String _img_foto_atletaOriginal = '';
+  String _img_comp_resid_atletaOriginal = '';
+  String _img_regulamento_atletaOriginal = '';
+
 
   TextEditingController _nomeController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -57,7 +135,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
   TextEditingController _naturalidadeController = TextEditingController();
   TextEditingController _nacionalidadeController = TextEditingController();
   TextEditingController _rgController = TextEditingController();
-  TextEditingController _cpflController = TextEditingController();
+  TextEditingController _cpfController = TextEditingController();
   TextEditingController _sexoController = TextEditingController();
   TextEditingController _numTelefoneController = TextEditingController();
   TextEditingController _numTelefoneEmergenciaController = TextEditingController();
@@ -75,20 +153,19 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
   TextEditingController _estilosController = TextEditingController();
   TextEditingController _provasController = TextEditingController();
 
-  TextEditingController _img_atestado_atleta = TextEditingController();
-  TextEditingController _img_rg_atleta = TextEditingController();
-  TextEditingController _img_cpf_atleta = TextEditingController();
-  TextEditingController _img_foto_atleta = TextEditingController();
-  TextEditingController _img_comp_resid_atleta = TextEditingController();
-  TextEditingController _img_regulamento_atleta = TextEditingController();
+  TextEditingController _img_atestado_atletaController = TextEditingController();
+  TextEditingController _img_rg_atletaController = TextEditingController();
+  TextEditingController _img_cpf_atletaController = TextEditingController();
+  TextEditingController _img_foto_atletaController = TextEditingController();
+  TextEditingController _img_comp_resid_atletaController = TextEditingController();
+  TextEditingController _img_regulamento_atletaController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _obterInfoUsuario();
-
-
   }
+
 
   void _atualizarEstado() {
     setState(() {
@@ -117,7 +194,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
       }
 
       if (_cpflOriginal.isEmpty) {
-        _cpflOriginal = _cpflController.text;
+        _cpflOriginal = _cpfController.text;
       }
 
       if (_sexoOriginal.isEmpty) {
@@ -184,6 +261,30 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
         _provasOriginal = _provasController.text;
       }
 
+      if (_img_atestado_atletaOriginal.isEmpty) {
+        _img_atestado_atletaOriginal = _img_atestado_atletaController.text;
+      }
+
+      if ( _img_rg_atletaOriginal.isEmpty) {
+        _img_rg_atletaOriginal =  _img_rg_atletaController.text;
+      }
+
+      if ( _img_cpf_atletaOriginal.isEmpty) {
+        _img_cpf_atletaOriginal =  _img_cpf_atletaController.text;
+      }
+
+      if ( _img_foto_atletaOriginal.isEmpty) {
+        _img_foto_atletaOriginal =  _img_foto_atletaController.text;
+      }
+
+      if ( _img_comp_resid_atletaOriginal.isEmpty) {
+        _img_comp_resid_atletaOriginal =  _img_comp_resid_atletaController.text;
+      }
+
+      if ( _img_regulamento_atletaOriginal.isEmpty) {
+        _img_regulamento_atletaOriginal =  _img_regulamento_atletaController.text;
+      }
+
     });
   }
 
@@ -216,7 +317,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
         _naturalidadeController.text = atletaData['nat_atleta'] ?? '';
         _nacionalidadeController.text = atletaData['nac_atleta'] ?? '';
         _rgController.text = atletaData['rg_atleta'] ?? '';
-        _cpflController.text = atletaData['cpf_atleta'] ?? '';
+        _cpfController.text = atletaData['cpf_atleta'] ?? '';
         _numTelefoneController.text = atletaData['num_telefone_atleta'] ?? '';
         _numTelefoneEmergenciaController.text = atletaData['num_telefone_emergencia'] ?? '';
         _sexoController.text = atletaData['sex_atleta'] ?? '';
@@ -233,6 +334,12 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
         _alergiaController.text = atletaData['alg_atleta'] ?? '';
         _estilosController.text = atletaData['est_atleta'] ?? '';
         _provasController.text = atletaData['prv_atleta'] ?? '';
+        _img_atestado_atletaController.text = atletaData['img_atestado_atleta'] ?? '';
+        _img_rg_atletaController.text = atletaData['img_rg_atleta'] ?? '';
+        _img_cpf_atletaController.text = atletaData['img_cpf_atleta'] ?? '';
+        _img_foto_atletaController.text = atletaData['img_foto_atleta'] ?? '';
+        _img_comp_resid_atletaController.text = atletaData['img_comp_resid_atleta'] ?? '';
+        _img_regulamento_atletaController.text = atletaData['img_regulamento_atleta'] ?? '';
 
         _atualizarEstado();
       }
@@ -251,7 +358,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
             _naturalidadeController.text.isEmpty ||
             _nacionalidadeController.text.isEmpty ||
             _rgController.text.isEmpty ||
-            _cpflController.text.isEmpty ||
+            _cpfController.text.isEmpty ||
             _numTelefoneController.text.isEmpty ||
             _numTelefoneEmergenciaController.text.isEmpty ||
             _sexoController.text.isEmpty ||
@@ -278,6 +385,13 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
           return;
         }
 
+        if (_tempImages[0] != null) await _uploadImageToStorage(_tempImages[0]!, 0);
+        if (_tempImages[1] != null) await _uploadImageToStorage(_tempImages[1]!, 1);
+        if (_tempImages[2] != null) await _uploadImageToStorage(_tempImages[2]!, 2);
+        if (_tempImages[3] != null) await _uploadImageToStorage(_tempImages[3]!, 3);
+        if (_tempImages[4] != null) await _uploadImageToStorage(_tempImages[4]!, 4);
+        if (_tempImages[5] != null) await _uploadImageToStorage(_tempImages[5]!, 5);
+
         await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).update({
           'nome': _nomeController.text,
           'email': _emailController.text,
@@ -292,7 +406,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
           'nat_atleta': _naturalidadeController.text,
           'nac_atleta': _nacionalidadeController.text,
           'rg_atleta': _rgController.text,
-          'cpf_atleta': _cpflController.text,
+          'cpf_atleta': _cpfController.text,
           'num_telefone_atleta': _numTelefoneController.text,
           'num_telefone_emergencia': _numTelefoneEmergenciaController.text,
           'sex_atleta': _sexoController.text,
@@ -309,6 +423,12 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
           'alg_atleta': _alergiaController.text,
           'est_atleta': _estilosController.text,
           'prv_atleta': _provasController.text,
+          'img_atestado_atleta': _img_atestado_atletaController.text,
+          'img_rg_atleta': _img_rg_atletaController.text,
+          'img_cpf_atleta': _img_cpf_atletaController.text,
+          'img_foto_atleta': _img_foto_atletaController.text,
+          'img_comp_resid_atleta': _img_comp_resid_atletaController.text,
+          'img_regulamento_atleta': _img_regulamento_atletaController.text,
           'situacao_atleta': "habilitado",
         });
 
@@ -325,7 +445,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
           _naturalidadeOriginal = _naturalidadeController.text;
           _nacionalidadeOriginal = _nacionalidadeController.text;
           _rgOriginal = _rgController.text;
-          _cpflOriginal = _cpflController.text;
+          _cpflOriginal = _cpfController.text;
           _numTelefoneOriginal = _numTelefoneController.text;
           _numTelefoneEmergenciaOriginal = _numTelefoneEmergenciaController.text;
           _sexoOriginal = _sexoController.text;
@@ -342,6 +462,12 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
           _alergiaOriginal = _alergiaController.text;
           _estilosOriginal = _estilosController.text;
           _provasOriginal = _provasController.text;
+          _img_atestado_atletaOriginal = _img_atestado_atletaController.text;
+          _img_rg_atletaOriginal = _img_rg_atletaController.text;
+          _img_cpf_atletaOriginal= _img_cpf_atletaController.text;
+          _img_foto_atletaOriginal = _img_foto_atletaController.text;
+          _img_comp_resid_atletaOriginal= _img_comp_resid_atletaController.text;
+          _img_regulamento_atletaOriginal= _img_regulamento_atletaController.text;
         });
       }
     } catch (e) {
@@ -357,7 +483,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
         _naturalidadeController.text.trim() != _naturalidadeOriginal.trim() ||
         _nacionalidadeController.text.trim() != _nacionalidadeOriginal.trim() ||
         _rgController.text.trim() != _rgOriginal.trim() ||
-        _cpflController.text.trim() != _cpflOriginal.trim() ||
+        _cpfController.text.trim() != _cpflOriginal.trim() ||
         _numTelefoneController.text.trim() != _numTelefoneOriginal.trim() ||
         _numTelefoneEmergenciaController.text.trim() != _numTelefoneEmergenciaOriginal.trim() ||
         _sexoController.text.trim() != _sexoOriginal.trim() ||
@@ -373,7 +499,14 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
         _convenioController.text.trim() != _convenioOriginal.trim() ||
         _alergiaController.text.trim() != _alergiaOriginal.trim() ||
         _estilosController.text.trim() != _estilosOriginal.trim() ||
-        _provasController.text.trim() != _provasOriginal.trim();
+        _provasController.text.trim() != _provasOriginal.trim() ||
+        _img_atestado_atletaController.text.trim() != _img_atestado_atletaOriginal.trim() ||
+        _img_rg_atletaController.text.trim() != _img_rg_atletaOriginal.trim() ||
+        _img_cpf_atletaController.text.trim() != _img_cpf_atletaOriginal.trim() ||
+        _img_foto_atletaController.text.trim() != _img_foto_atletaOriginal.trim() ||
+        _img_comp_resid_atletaController.text.trim() != _img_comp_resid_atletaOriginal.trim() ||
+        _img_regulamento_atletaController.text.trim() != _img_regulamento_atletaOriginal.trim();
+
   }
 
   int _selectedIndex = 2;
@@ -387,7 +520,7 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegistroAtleta()),
+        MaterialPageRoute(builder: (context) => RegistroTreinoAtleta()),
       );
     }
 
@@ -583,6 +716,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _rgController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -610,6 +748,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _cpfController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -637,6 +780,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _dataNascimentoController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -664,6 +812,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _naturalidadeController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -691,6 +844,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _nacionalidadeController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -718,10 +876,14 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _sexoController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
-                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Sexo',
                           labelStyle: TextStyle(
@@ -746,10 +908,14 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _numTelefoneController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
-                        obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Numero do telefone',
                           labelStyle: TextStyle(
@@ -774,12 +940,16 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _numTelefoneEmergenciaController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
-                        obscureText: true,
                         decoration: InputDecoration(
-                          labelText: 'Telefone 2',
+                          labelText: 'Telefone Emergencial',
                           labelStyle: TextStyle(
                             fontFamily: 'Open Sans',
                             fontSize: 17 * ffem,
@@ -802,6 +972,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _enderecoController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410), // Define a cor do texto digitado
                         ),
@@ -825,18 +1000,15 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                               width: 2.0,
                             ),
                           ),
-                          suffixIcon: IconButton(
-                            icon: const Icon(
-                              Icons.visibility,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                            },
-                          ),
                         ),
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _bairroController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -864,6 +1036,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _cepController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -891,6 +1068,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _cidadeController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -918,6 +1100,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _ufController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -945,6 +1132,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _maeAtletaController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -972,6 +1164,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _paiAtletaController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -999,6 +1196,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _clubeController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -1026,6 +1228,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _empresaController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -1053,6 +1260,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _convenioController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -1080,6 +1292,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _alergiaController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -1107,6 +1324,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _estilosController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -1134,6 +1356,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                       ),
                       SizedBox(height: 20 * ffem),
                       TextField(
+                        controller: _provasController,
+                        onChanged: (value) {
+                          _atualizarEstado();
+                          setState(() {}); // Isso força a reconstrução do widget quando os dados são alterados
+                        },
                         style: const TextStyle(
                           color: Color(0xFF010410),
                         ),
@@ -1166,11 +1393,11 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                         ),
                         decoration: InputDecoration(
                           labelText: 'Imagem atestado',
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             fontFamily: 'Open Sans',
-                            fontSize: 17 * ffem,
+                            fontSize: 17,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF0C2172),
+                            color: Color(0xFF0C2172),
                           ),
                           enabledBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -1184,7 +1411,376 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
                               width: 2.0,
                             ),
                           ),
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selecionarImagem(0, _img_atestado_atletaController),
+                            child: const Icon(Icons.upload),
+                          ),
                         ),
+                        readOnly: true,
+                        controller: _img_atestado_atletaController,
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          if (_tempImages[0] != null)
+                            Image.file(
+                              _tempImages[0]!,
+                              width: 400.0,
+                              height: 300.0, // Defina a altura desejada
+                              fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço definido
+                            ),
+                          if (_tempImages[0] != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _tempImages[0] = null;
+                                  _img_atestado_atletaController.text = '';
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: const TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Imagem RG',
+                          labelStyle: const TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selecionarImagem(1, _img_rg_atletaController),
+                            child: const Icon(Icons.upload),
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: _img_rg_atletaController,
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          if (_tempImages[1] != null)
+                            Image.file(
+                              _tempImages[1]!,
+                              width: 400.0,
+                              height: 300.0, // Defina a altura desejada
+                              fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço definido
+                            ),
+                          if (_tempImages[1] != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _tempImages[1] = null;
+                                  _img_rg_atletaController.text = '';
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: const TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Imagem CPF',
+                          labelStyle: const TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selecionarImagem(2, _img_cpf_atletaController),
+                            child: const Icon(Icons.upload),
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: _img_cpf_atletaController,
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          if (_tempImages[2] != null)
+                            Image.file(
+                              _tempImages[2]!,
+                              width: 400.0,
+                              height: 300.0, // Defina a altura desejada
+                              fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço definido
+                            ),
+                          if (_tempImages[2] != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _tempImages[2] = null;
+                                  _img_cpf_atletaController.text = '';
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: const TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Imagem Foto Usuário',
+                          labelStyle: const TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selecionarImagem(3, _img_foto_atletaController),
+                            child: const Icon(Icons.upload),
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: _img_foto_atletaController,
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          if (_tempImages[3] != null)
+                            Image.file(
+                              _tempImages[3]!,
+                              width: 400.0,
+                              height: 300.0, // Defina a altura desejada
+                              fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço definido
+                            ),
+                          if (_tempImages[4] != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _tempImages[4] = null;
+                                  _img_foto_atletaController.text = '';
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: const TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Imagem Comprovante de Residência',
+                          labelStyle: const TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selecionarImagem(4, _img_comp_resid_atletaController),
+                            child: const Icon(Icons.upload),
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: _img_comp_resid_atletaController,
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          if (_tempImages[4] != null)
+                            Image.file(
+                              _tempImages[4]!,
+                              width: 400.0,
+                              height: 300.0, // Defina a altura desejada
+                              fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço definido
+                            ),
+                          if (_tempImages[4] != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _tempImages[4] = null;
+                                  _img_comp_resid_atletaController.text = '';
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      SizedBox(height: 20 * ffem),
+                      TextField(
+                        style: const TextStyle(
+                          color: Color(0xFF010410),
+                        ),
+                        decoration: InputDecoration(
+                          labelText: 'Imagem Regulamento',
+                          labelStyle: const TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF0C2172),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          suffixIcon: GestureDetector(
+                            onTap: () => _selecionarImagem(5, _img_regulamento_atletaController),
+                            child: const Icon(Icons.upload),
+                          ),
+                        ),
+                        readOnly: true,
+                        controller: _img_regulamento_atletaController,
+                      ),
+                      Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          if (_tempImages[5] != null)
+                            Image.file(
+                              _tempImages[5]!,
+                              width: 400.0,
+                              height: 300.0, // Defina a altura desejada
+                              fit: BoxFit.cover, // Ajusta a imagem para cobrir o espaço definido
+                            ),
+                          if (_tempImages[5] != null)
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _tempImages[5] = null;
+                                  _img_regulamento_atletaController.text = '';
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.red,
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                        ],
                       ),
                       SizedBox(height: 40 * ffem),
                       Container(

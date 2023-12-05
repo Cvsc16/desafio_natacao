@@ -63,7 +63,7 @@ class _LoginState extends State<Login> {
       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
         _exibirToast('Os dados de login estão incorretos. Por favor, tente novamente.');
       } else {
-        _exibirToast('Erro durante o login: $e');
+        _exibirToast('Os dados de login estão incorretos. Por favor, tente novamente.');
       }
     }
   }

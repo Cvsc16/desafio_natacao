@@ -32,21 +32,21 @@ void _showLogoutConfirmationDialog(BuildContext context) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text('Sair da Conta'),
-        content: Text('Tem certeza de que deseja sair da conta?'),
+        title: const Text('Sair da Conta'),
+        content: const Text('Tem certeza de que deseja sair da conta?'),
         actions: <Widget>[
           TextButton(
             onPressed: () {
               Navigator.of(context).pop(); // Fecha o diálogo
             },
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
           TextButton(
             onPressed: () async {
               await _signOut(context); // Chama o método para fazer logout
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
             },
-            child: Text('Sair'),
+            child: const Text('Sair'),
           ),
         ],
       );
@@ -84,7 +84,7 @@ class _HomeADMState extends State<HomeADM> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.logout,
               color: Colors.red,
             ),
@@ -102,7 +102,7 @@ class _HomeADMState extends State<HomeADM> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
+            const Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
@@ -127,8 +127,8 @@ class _HomeADMState extends State<HomeADM> {
                 ),
               ],
             ),
-            SizedBox(height: 5.0),
-            Text(
+            const SizedBox(height: 5.0),
+            const Text(
               'Bons treinos!',
               style: TextStyle(
                 fontSize: 15.0,
@@ -137,7 +137,7 @@ class _HomeADMState extends State<HomeADM> {
                 color: Color(0xFF06113C),
               ),
             ),
-            SizedBox(height: 25.0),
+            const SizedBox(height: 25.0),
             GestureDetector(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => NovoUsuario()));
@@ -147,7 +147,7 @@ class _HomeADMState extends State<HomeADM> {
                 children: [
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.only(right: 0.0),
+                      padding: const EdgeInsets.only(right: 0.0),
                       child: SvgPicture.asset('assets/novo_registro.svg'),
                     ),
                   ),

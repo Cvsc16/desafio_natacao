@@ -192,7 +192,7 @@ class _RegistroTreinoTreinadorState extends State<RegistroTreinoTreinador> {
                         margin: EdgeInsets.symmetric(horizontal: 0.0),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => Cronometro()));
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => Cronometro()));
                           },
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xFF0C2172),
