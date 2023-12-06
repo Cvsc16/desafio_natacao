@@ -1,8 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
+
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Volta extends StatelessWidget {
   final String id_volta;
@@ -144,24 +148,30 @@ class Cronometro extends StatefulWidget {
 
 class _CronometroState extends State<Cronometro> {
   late Stopwatch cronometro;
+  late Stopwatch cronometroGeral;
   late Timer timer;
   bool iniciado = false;
   bool parado = false;
   List<String> voltas = [];
   int tempoTotal = 0;
-  String frequenciaInicial = '';
-  String frequenciaFinal = '';
-  final TextEditingController _frequenciaInicialController = TextEditingController();
-  final TextEditingController _frequenciaFinalController = TextEditingController();
+
+  final TextEditingController frequenciaInicialController = TextEditingController();
+  final TextEditingController frequenciaFinalController = TextEditingController();
+
 
   @override
   void initState() {
     super.initState();
     cronometro = Stopwatch();
-    timer = Timer.periodic(const Duration(minutes: 30), (timer) {
-      if (iniciado) {
+    cronometroGeral = Stopwatch();
+    timer = Timer.periodic(const Duration(milliseconds: 10), (Timer t) {
+      if (cronometroGeral.elapsed.inMinutes >= 30 && iniciado) {
         _pararCronometro();
-        _salvar();
+      }
+      if (iniciado) {
+        setState(() {
+          tempoTotal = cronometroGeral.elapsedMilliseconds;
+        });
       }
     });
   }
@@ -170,7 +180,8 @@ class _CronometroState extends State<Cronometro> {
     setState(() {
       iniciado = true;
       cronometro.start();
-      timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      cronometroGeral.start();
+      timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
         setState(() {});
       });
     });
@@ -180,6 +191,7 @@ class _CronometroState extends State<Cronometro> {
     setState(() {
       timer.cancel();
       cronometro.stop();
+      cronometroGeral.stop();
       parado = true;
     });
   }
@@ -189,6 +201,7 @@ class _CronometroState extends State<Cronometro> {
       voltas.clear();
       tempoTotal = 0;
       cronometro.reset();
+      cronometroGeral.reset();
       iniciado = false;
       parado = false;
     });
@@ -197,8 +210,9 @@ class _CronometroState extends State<Cronometro> {
   void _retomarCronometro() {
     setState(() {
       cronometro.start();
+      cronometroGeral.start();
       parado = false;
-      timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
         setState(() {});
       });
     });
@@ -206,28 +220,75 @@ class _CronometroState extends State<Cronometro> {
 
   void _registrarVolta() {
     setState(() {
-      tempoTotal += cronometro.elapsedMilliseconds;
       voltas.add(_formatarTempo(cronometro.elapsedMilliseconds));
       cronometro.reset();
     });
   }
 
-  void _salvar() {
-    if (frequenciaInicial.isNotEmpty && frequenciaFinal.isNotEmpty && cronometro.elapsed.inMinutes >= 30) {
-      FirebaseFirestore.instance.collection('treino').add({
-      'estiloTreino': widget.estiloTreino,
-      'numeroTreino': voltas.length,
-      'idAtleta': widget.idAtleta,
-      'dataTreino': widget.dataTreino,
-      'frequenciaCardiacaInicio': frequenciaInicial,
-      'frequenciaCardiacaFinal': frequenciaFinal,
-      'tempoVoltas': voltas,
-      'tempoTotal': _formatarTempo(tempoTotal),
-      'mediaTempo': _formatarTempo((tempoTotal / voltas.length.toInt()) as int),
-      'metrosUltimaVolta':
-      'responsavel':
-      });
+  Future<int> _getNumeroTotalTreinos() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('treinos').get();
+    return querySnapshot.docs.length;
+  }
+
+
+
+  void _salvar() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String userId = user.uid;
+
+      int numeroTotalTreinos = await _getNumeroTotalTreinos();
+      int numeroNovoTreino = numeroTotalTreinos + 1;
+
+      if (frequenciaInicialController.text.isEmpty || frequenciaFinalController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Por favor, preencha as frequências cardíacas inicial e final.')),
+        );
+        return; // Sai do método se algum campo estiver vazio
+      }
+
+      if (tempoTotal >= 1) {
+        FirebaseFirestore.instance.collection('treinos').add({
+          'estiloTreino': widget.estiloTreino,
+          'numeroTreino': numeroNovoTreino,
+          'idAtleta': widget.idAtleta,
+          'dataTreino': widget.dataTreino,
+          'frequenciaCardiacaInicio': frequenciaInicialController.text,
+          'frequenciaCardiacaFinal': frequenciaFinalController.text,
+          'tempoVoltas': voltas,
+          'tempoTotal': _formatarTempo(tempoTotal),
+          'mediaTempo': _formatarTempo(tempoTotal ~/ voltas.length),
+          'metrosUltimaVolta': "",
+          'responsavel': userId,
+        }).then((docRef) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Treino registrado com sucesso!')),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeAtleta()),
+          );
+        }).catchError((error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Ocorreu um erro ao registrar o treino: $error')),
+          );
+        });
+      }
+    } else {
+      _exibirToast("Usuário não logado");
     }
+  }
+
+  void _exibirToast(String mensagem) {
+    Fluttertoast.showToast(
+      msg: mensagem,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: const Color(0xFF0b2d78),
+      textColor: Colors.yellow,
+      fontSize: 16.0,
+    );
   }
 
   String _formatarTempo(int milissegundos) {
@@ -345,6 +406,7 @@ class _CronometroState extends State<Cronometro> {
                         children: [
                           Expanded(
                             child: TextField(
+                              controller: frequenciaInicialController,
                               style: const TextStyle(
                                 color: Color(0xFF010410),
                               ),
@@ -374,10 +436,10 @@ class _CronometroState extends State<Cronometro> {
                           SizedBox(width: 20 * ffem),
                           Expanded(
                             child: TextField(
+                              controller: frequenciaFinalController,
                               style: const TextStyle(
                                 color: Color(0xFF010410),
                               ),
-                              obscureText: true,
                               decoration: InputDecoration(
                                 labelText: 'Final',
                                 labelStyle: TextStyle(
@@ -386,15 +448,19 @@ class _CronometroState extends State<Cronometro> {
                                   fontWeight: FontWeight.w400,
                                   color: const Color(0xFF0C2172),
                                 ),
-                                enabledBorder: const UnderlineInputBorder(
+                                enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF2C2C2E),
+                                    color: (cronometro.elapsed.inMinutes >= 30 && frequenciaFinalController.text.isEmpty)
+                                        ? Colors.red
+                                        : const Color(0xFF2C2C2E),
                                     width: 2.0,
                                   ),
                                 ),
-                                focusedBorder: const UnderlineInputBorder(
+                                focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF0C2172),
+                                    color: (cronometro.elapsed.inMinutes >= 30 && frequenciaFinalController.text.isEmpty)
+                                        ? Colors.red
+                                        : const Color(0xFF0C2172),
                                     width: 2.0,
                                   ),
                                 ),
@@ -458,7 +524,7 @@ class _CronometroState extends State<Cronometro> {
                                 ),
                                 fixedSize: const Size(150, 50),
                               ),
-                              child: Text('Resetar'),
+                              child: const Text('Resetar'),
                             ),
                         ],
                       ),
@@ -466,7 +532,7 @@ class _CronometroState extends State<Cronometro> {
                       SizedBox(height: 20 * ffem),
                       Container(
                         margin: const EdgeInsets.symmetric(horizontal: 0.0),
-                        child: cronometro.elapsed.inMinutes >= 30 && frequenciaInicial.isNotEmpty && frequenciaFinal.isNotEmpty
+                        child: parado && tempoTotal >= 1 && frequenciaInicialController.text.isNotEmpty && frequenciaFinalController.text.isNotEmpty
                             ? ElevatedButton(
                           onPressed: _salvar,
                           style: ElevatedButton.styleFrom(

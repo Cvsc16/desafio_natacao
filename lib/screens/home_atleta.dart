@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:desafio6etapa/screens/perfil_atleta.dart';
 import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../widgets/barra_navegacao_atleta.dart';
@@ -8,13 +10,13 @@ class Treino extends StatelessWidget {
   final String id_treino;
   final String tipo_treino;
   final String data_treino;
-  final String tempo_treino;
+  final String media_treino;
 
   Treino({
     required this.id_treino,
     required this.tipo_treino,
     required this.data_treino,
-    required this.tempo_treino,
+    required this.media_treino,
   });
 
   @override
@@ -48,7 +50,7 @@ class Treino extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 20.0),
               child: Text(
-                tempo_treino,
+                media_treino,
                 style: TextStyle(
                   fontSize: 13.0,
                   fontFamily: 'Open Sans',
@@ -100,8 +102,49 @@ class HomeAtleta extends StatefulWidget {
 }
 
 class _HomeAtletaState extends State<HomeAtleta> {
-
+  String nomeUsuario = '';
+  List<Treino> listaTreinos = [];
   int _selectedIndex = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+    _getNomeUsuario();
+    _getTreinosUsuario();
+  }
+
+  Future<void> _getNomeUsuario() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var userData = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+      setState(() {
+        String nomeCompleto = userData.data()?['nome'] ?? '';
+        List<String> partesNome = nomeCompleto.split(' ');
+        nomeUsuario = partesNome.isNotEmpty ? partesNome[0] : '';
+      });
+    }
+  }
+
+  Future<void> _getTreinosUsuario() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var treinosData = await FirebaseFirestore.instance.collection('treinos')
+          .where('idAtleta', isEqualTo: user.uid)
+          // .orderBy('dataTreino', descending: true)
+          .limit(3)
+          .get();
+
+      setState(() {
+        listaTreinos = treinosData.docs.map((doc) => Treino(
+          id_treino: doc.id,
+          tipo_treino: doc.data()['estiloTreino'] ?? '',
+          data_treino: doc.data()['dataTreino'] ?? '',
+          media_treino: doc.data()['mediaTempo'] ?? '',
+        )).toList();
+      });
+    }
+  }
 
   void _onItemTapped(int index) {
     if (index == 0) {
@@ -129,6 +172,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
 
   @override
   Widget build(BuildContext context) {
+    double alturaContainer = 68.0 * 3;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF0C2172),
@@ -155,7 +199,7 @@ class _HomeAtletaState extends State<HomeAtleta> {
                 ),
                 SizedBox(width: 5.0),
                 Text(
-                  'Sarah,',
+                  '$nomeUsuario,',
                   style: TextStyle(
                     fontSize: 36.0,
                     fontFamily: 'Open Sans',
@@ -186,49 +230,26 @@ class _HomeAtletaState extends State<HomeAtleta> {
               ),
             ),
             SizedBox(height: 20.0),
-            Stack(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF0C2172),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 10.0),
-                      Padding(
-                        padding: EdgeInsets.only(left: 20.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Treino(
-                              id_treino: '1',
-                              tipo_treino: 'Nado borboleta - 100m',
-                              data_treino: '04/10/2023',
-                              tempo_treino: '07:10:65',
-                            ),
-                            Treino(
-                              id_treino: '2',
-                              tipo_treino: 'Nado crawl - 50m',
-                              data_treino: '05/10/2023',
-                              tempo_treino: '08:15:42',
-                            ),
-                            Treino(
-                              id_treino: '3',
-                              tipo_treino: 'Nado Borboleta - 100m',
-                              data_treino: '02/10/2023',
-                              tempo_treino: '10:15:42',
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 10.0),
-                    ],
-                  ),
-                ),
-              ],
+            Container(
+              height: alturaContainer, // Altura fixa do container
+              decoration: BoxDecoration(
+                color: Color(0xFF0C2172),
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+              child: ListView.builder(
+                itemCount: listaTreinos.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(left: 20.0), // Adiciona espaço à esquerda
+                    child: Treino(
+                      id_treino: (index + 1).toString(),
+                      tipo_treino: listaTreinos[index].tipo_treino,
+                      data_treino: listaTreinos[index].data_treino,
+                      media_treino: listaTreinos[index].media_treino,
+                    ),
+                  );
+                },
+              ),
             ),
             SizedBox(height: 20.0),
             Column(

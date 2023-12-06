@@ -40,7 +40,10 @@ class _RegistroTreinoAtletaState extends State<RegistroTreinoAtleta> {
     setState(() {
       atletasList = snapshot.docs.map((DocumentSnapshot document) {
         Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-        return data;
+        return {
+          'id': document.id,
+          'nome': data['nom_atleta'],
+        };
       }).toList();
     });
   }
@@ -102,8 +105,8 @@ class _RegistroTreinoAtletaState extends State<RegistroTreinoAtleta> {
                         value: selectedAtleta,
                         items: atletasList.map<DropdownMenuItem<String>>((atleta) {
                           return DropdownMenuItem<String>(
-                            value: atleta['nom_atleta'],
-                            child: Text(atleta['nom_atleta']),
+                            value: atleta['id'],
+                            child: Text(atleta['nome']),
                           );
                         }).toList(),
                         onChanged: (value) {
