@@ -1,81 +1,69 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:desafio6etapa/screens/consultar_usuarios.dart';
 import 'package:desafio6etapa/screens/login.dart';
 import 'package:desafio6etapa/screens/novo_usuario.dart';
-import 'package:desafio6etapa/screens/perfil_atleta.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../widgets/barra_navegacao_adm.dart';
-
-
 
 class HomeADM extends StatefulWidget {
   @override
   _HomeADMState createState() => _HomeADMState();
 }
 
-Future<void> _signOut(BuildContext context) async {
-  try {
-    await FirebaseAuth.instance.signOut();
-    // Navegue para a tela de login ou qualquer outra tela desejada após o logout
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
-  } catch (e) {
-    print('Erro durante o logout: $e');
-    // Lidar com erros, se necessário
-  }
-}
-
-// ...
-
-void _showLogoutConfirmationDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: const Text('Sair da Conta'),
-        content: const Text('Tem certeza de que deseja sair da conta?'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // Fecha o diálogo
-            },
-            child: const Text('Cancelar'),
-          ),
-          TextButton(
-            onPressed: () async {
-              await _signOut(context); // Chama o método para fazer logout
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
-            },
-            child: const Text('Sair'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
 class _HomeADMState extends State<HomeADM> {
-  int _selectedIndex = 0;
+  String nomeUsuario = '';
 
-  // Método para lidar com a troca de aba
-  void _onItemTapped(int index) {
-    if (index == 0) {
-      // Navegar para a primeira tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeADM()), // Substitua 'Tela1' pela tela que deseja exibir
-      );
-    } else if (index == 1) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ConsultarUsuarios()), // Substitua 'Tela2' pela tela que deseja exibir
-      );
+  @override
+  void initState() {
+    super.initState();
+    _getNomeUsuario();
+  }
+
+  Future<void> _getNomeUsuario() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var userData = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+      setState(() {
+        String nomeCompleto = userData.data()?['nome'] ?? '';
+        List<String> partesNome = nomeCompleto.split(' ');
+        nomeUsuario = partesNome.isNotEmpty ? partesNome[0] : '';
+      });
     }
-    // Atualize o índice selecionado
-    setState(() {
-      _selectedIndex = index;
-    });
+  }
+
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+    } catch (e) {
+      print('Erro durante o logout: $e');
+    }
+  }
+
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Sair da Conta'),
+          content: const Text('Tem certeza de que deseja sair da conta?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () async {
+                await _signOut(context);
+                Navigator.of(context).pop();
+              },
+              child: const Text('Sair'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -84,17 +72,11 @@ class _HomeADMState extends State<HomeADM> {
       appBar: AppBar(
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.logout,
-              color: Colors.red,
-            ),
-            onPressed: () {
-              _showLogoutConfirmationDialog(context);
-            },
+            icon: const Icon(Icons.logout, color: Colors.red),
+            onPressed: () => _showLogoutConfirmationDialog(context),
           ),
         ],
         backgroundColor: Colors.transparent,
-        toolbarHeight: 40.0,
         elevation: 0.0,
       ),
       body: Padding(
@@ -102,73 +84,39 @@ class _HomeADMState extends State<HomeADM> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                Text(
+                const Text(
                   'Olá',
-                  style: TextStyle(
-                    fontSize: 36.0,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w300,
-                    color: Color(0xFF06113C),
-                  ),
+                  style: TextStyle(fontSize: 36.0, fontFamily: 'Inter', fontWeight: FontWeight.w300, color: Color(0xFF06113C)),
                 ),
-                SizedBox(width: 5.0),
+                const SizedBox(width: 5.0),
                 Text(
-                  'Sarah,',
-                  style: TextStyle(
-                    fontSize: 36.0,
-                    fontFamily: 'Open Sans',
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF06113C),
-                  ),
+                  '$nomeUsuario,',
+                  style: const TextStyle(fontSize: 36.0, fontFamily: 'Open Sans', fontWeight: FontWeight.w600, color: Color(0xFF06113C)),
                 ),
               ],
             ),
             const SizedBox(height: 5.0),
             const Text(
               'Bons treinos!',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontFamily: 'Open Sans',
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF06113C),
-              ),
+              style: TextStyle(fontSize: 15.0, fontFamily: 'Open Sans', fontWeight: FontWeight.w400, color: Color(0xFF06113C)),
             ),
             const SizedBox(height: 25.0),
             GestureDetector(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => NovoUsuario()));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 0.0),
-                      child: SvgPicture.asset('assets/novo_registro.svg'),
-                    ),
-                  ),
-                ],
-              ),
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => NovoUsuario())),
+              child: SvgPicture.asset('assets/novo_registro.svg'),
+            ),
+            const SizedBox(height: 25.0),
+            GestureDetector(
+              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ConsultarUsuarios())),
+              child: SvgPicture.asset('assets/consultar_svg.svg'),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNavigationADM(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
     );
   }
 }
-
-void main() {
-  runApp(MaterialApp(
-    home: HomeADM(),
-  ));
-}
-
-

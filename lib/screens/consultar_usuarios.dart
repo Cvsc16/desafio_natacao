@@ -12,32 +12,6 @@ class ConsultarUsuarios extends StatefulWidget {
 }
 
 class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
-  int _selectedIndex = 1;
-
-  void _onItemTapped(int index) {
-
-    if (index == 0) {
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeADM()),
-      );
-    } else if (index == 1) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => ConsultarUsuarios()),
-      );
-    }
-    // Atualize o índice selecionado
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-
-  void _salvar() {
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,26 +26,33 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            leading: IconButton(
+              icon: SizedBox(
+                width: 24.0,  // Defina a largura desejada
+                height: 24.0,  // Defina a altura desejada
+                child: SvgPicture.asset('assets/ic_volta.svg'),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             backgroundColor: Colors.white,
             elevation: 0.0,
             floating: false,
             pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              titlePadding: EdgeInsets.only(top: 8.0),
-              title: Text(
-                'Usuários',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF06113C),
-                ),
+            centerTitle: true,
+            title: const Text(
+              'Usuários',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 28.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF06113C),
               ),
             ),
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(height: 20.0),
           ),
           SliverToBoxAdapter(
@@ -79,14 +60,14 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta(tipoUsuario: "atleta")));
                   },
                   child: Container(
                     height: 180.0,
-                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage('assets/fundo_atleta.png'),
                         fit: BoxFit.cover,
                       ),
@@ -99,7 +80,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Atleta',
                         style: TextStyle(
                           fontSize: 17.0,
@@ -108,14 +89,14 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
                       Row(
                         children: [
                           SvgPicture.asset(
                             'assets/barra.svg',
                           ),
-                          SizedBox(width: 4.0),
-                          Text(
+                          const SizedBox(width: 4.0),
+                          const Text(
                             'Acompanhe seu desempenho',
                             style: TextStyle(
                               fontSize: 13.0,
@@ -132,7 +113,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               ],
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(height: 20.0),
           ),
           SliverToBoxAdapter(
@@ -140,14 +121,14 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta(tipoUsuario: "treinador")));
                   },
                   child: Container(
                     height: 180.0,
-                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage('assets/fundo_treinador.png'),
                         fit: BoxFit.cover,
                       ),
@@ -160,7 +141,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Treinador',
                         style: TextStyle(
                           fontSize: 17.0,
@@ -169,14 +150,14 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
                       Row(
                         children: [
                           SvgPicture.asset(
                             'assets/barra.svg',
                           ),
-                          SizedBox(width: 4.0),
-                          Text(
+                          const SizedBox(width: 4.0),
+                          const Text(
                             'Monitore seus atletas',
                             style: TextStyle(
                               fontSize: 13.0,
@@ -193,7 +174,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               ],
             ),
           ),
-          SliverToBoxAdapter(
+          const SliverToBoxAdapter(
             child: SizedBox(height: 20.0),
           ),
           SliverToBoxAdapter(
@@ -201,14 +182,14 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UsuariosConsulta(tipoUsuario: "administrador")));
                   },
                   child: Container(
                     height: 180.0,
-                    margin: EdgeInsets.symmetric(horizontal: 20.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 20.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: AssetImage('assets/fundo_adm.png'),
                         fit: BoxFit.cover,
                       ),
@@ -221,7 +202,7 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Administrador',
                         style: TextStyle(
                           fontSize: 17.0,
@@ -230,14 +211,14 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: 4.0),
+                      const SizedBox(height: 4.0),
                       Row(
                         children: [
                           SvgPicture.asset(
                             'assets/barra.svg',
                           ),
-                          SizedBox(width: 4.0),
-                          Text(
+                          const SizedBox(width: 4.0),
+                          const Text(
                             'Gerencie o sistema',
                             style: TextStyle(
                               fontSize: 13.0,
@@ -289,10 +270,6 @@ class _ConsultarUsuariosState extends State<ConsultarUsuarios> {
           //   ]),
           // ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationADM(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

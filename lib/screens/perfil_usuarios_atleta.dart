@@ -14,9 +14,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class PerfilAtleta extends StatefulWidget {
+class PerfilUsuariosAtleta extends StatefulWidget {
+  final String idAtleta;
+
+  PerfilUsuariosAtleta({required this.idAtleta});
+
   @override
-  _PerfilAtletaState createState() => _PerfilAtletaState();
+  _PerfilUsuariosAtletaState createState() => _PerfilUsuariosAtletaState();
 
 
 }
@@ -24,7 +28,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 
 String? _userID;
 
-class _PerfilAtletaState extends State<PerfilAtleta> {
+class _PerfilUsuariosAtletaState extends State<PerfilUsuariosAtleta> {
   final List<File?> _tempImages = List.filled(6, null);
   final List<String> _caminhosDasImagens = List.filled(6, '');
 
@@ -297,8 +301,8 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
       });
 
       // Obter a referência do documento do usuário no Firestore
-      DocumentSnapshot DocUsuario = await FirebaseFirestore.instance.collection('usuarios').doc(_userID).get();
-      DocumentSnapshot DocAtleta = await FirebaseFirestore.instance.collection('atletas').doc(_userID).get();
+      DocumentSnapshot DocUsuario = await FirebaseFirestore.instance.collection('usuarios').doc(widget.idAtleta).get();
+      DocumentSnapshot DocAtleta = await FirebaseFirestore.instance.collection('atletas').doc(widget.idAtleta).get();
 
 
       // Verificar se o documento existe antes de acessar os dados
@@ -392,14 +396,14 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
         if (_tempImages[4] != null) await _uploadImageToStorage(_tempImages[4]!, 4);
         if (_tempImages[5] != null) await _uploadImageToStorage(_tempImages[5]!, 5);
 
-        await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).update({
+        await FirebaseFirestore.instance.collection('usuarios').doc(widget.idAtleta).update({
           'nome': _nomeController.text,
           'email': _emailController.text,
         });
 
         await user.updateEmail(_emailController.text);
 
-        await FirebaseFirestore.instance.collection('atletas').doc(user.uid).update({
+        await FirebaseFirestore.instance.collection('atletas').doc(widget.idAtleta).update({
           'nom_atleta': _nomeController.text,
           'dtn_atleta': _dataNascimentoController.text,
           'nat_atleta': _naturalidadeController.text,
@@ -508,32 +512,6 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
 
   }
 
-  int _selectedIndex = 2;
-
-  void _onItemTapped(int index) {
-    if (index == 0) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeAtleta()),
-      );
-    } else if (index == 1) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => RegistroTreinoAtleta()),
-      );
-    }
-
-    else if (index == 2) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()),
-      );
-    }
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   Future<void> _signOut(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -611,10 +589,17 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            leading: IconButton(
+              icon: SizedBox(
+                width: 24.0,  // Defina a largura desejada
+                height: 24.0,  // Defina a altura desejada
+                child: SvgPicture.asset('assets/ic_volta.svg'),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
             backgroundColor: Colors.white,
-            elevation: 0.0,
-            floating: false,
-            pinned: true,
             actions: [
               IconButton(
                 icon: const Icon(
@@ -1813,10 +1798,6 @@ class _PerfilAtletaState extends State<PerfilAtleta> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationAtleta(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:desafio6etapa/screens/cronometro.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:desafio6etapa/screens/home_treinador.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -48,6 +50,37 @@ class _RegistroTreinoAtletaState extends State<RegistroTreinoAtleta> {
     });
   }
 
+  void _navigateBasedOnUserType() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var userData = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+      String? tipoUsuario = userData.data()?['tipoUsuario'];
+
+      if (tipoUsuario != null) {
+        if (tipoUsuario == 'atleta') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeAtleta()),
+          );
+        } else if (tipoUsuario == 'treinador') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeTreinador()),
+          );
+        } else {
+          // Tratar caso o tipo de usuário não seja nem 'atleta' nem 'treinador'
+          print("Tipo de usuário desconhecido.");
+        }
+      } else {
+        // Tratar caso o campo 'tipoUsuario' não esteja presente
+        print("Campo 'tipoUsuario' não encontrado.");
+      }
+    } else {
+      // Tratar caso não haja usuário logado
+      print("Nenhum usuário logado.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -65,12 +98,7 @@ class _RegistroTreinoAtletaState extends State<RegistroTreinoAtleta> {
               child: IconButton(
                 icon: SvgPicture.asset('assets/ic_volta.svg'),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeAtleta(),
-                    ),
-                  );
+                        _navigateBasedOnUserType();
                 },
               ),
             ),

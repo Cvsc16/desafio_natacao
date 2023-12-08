@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:desafio6etapa/screens/home_atleta.dart';
+import 'package:desafio6etapa/screens/home_treinador.dart';
 import 'package:desafio6etapa/screens/perfil_atleta.dart';
 import 'package:desafio6etapa/screens/registro_treino_atleta.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -100,12 +102,19 @@ class Treino extends StatelessWidget {
   }
 }
 
-class HomeAtleta extends StatefulWidget {
+class TreinoEspecifico extends StatefulWidget {
+  final String userId;
+
+
+  TreinoEspecifico({
+    required this.userId,
+  });
+
   @override
-  _HomeAtletaState createState() => _HomeAtletaState();
+  _TreinoEspecificoState createState() => _TreinoEspecificoState();
 }
 
-class _HomeAtletaState extends State<HomeAtleta> {
+class _TreinoEspecificoState extends State<TreinoEspecifico> {
   String nomeUsuario = '';
   List<Treino> listaTreinos = [];
   int _selectedIndex = 0;
@@ -119,23 +128,18 @@ class _HomeAtletaState extends State<HomeAtleta> {
   }
 
   Future<void> _getNomeUsuario() async {
-    var user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      var userData = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+      var userData = await FirebaseFirestore.instance.collection('usuarios').doc(widget.userId).get();
       setState(() {
         String nomeCompleto = userData.data()?['nome'] ?? '';
         List<String> partesNome = nomeCompleto.split(' ');
         nomeUsuario = partesNome.isNotEmpty ? partesNome[0] : '';
       });
-    }
   }
 
   Future<void> _getTreinosUsuario() async {
-    var user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
       var treinosData = await FirebaseFirestore.instance.collection('treinos')
-          .where('idAtleta', isEqualTo: user.uid)
-          // .orderBy('dataTreino', descending: true)
+          .where('idAtleta', isEqualTo: widget.userId)
+      // .orderBy('dataTreino', descending: true)
           .get();
 
       setState(() {
@@ -146,31 +150,6 @@ class _HomeAtletaState extends State<HomeAtleta> {
           media_treino: doc.data()['tempoTotal'] ?? '',
         )).toList();
       });
-    }
-  }
-
-  void _onItemTapped(int index) {
-    if (index == 0) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeAtleta()),
-      );
-    } else if (index == 1) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => RegistroTreinoAtleta()),
-      );
-    }
-
-    else if (index == 2) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PerfilAtleta()),
-      );
-    }
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 
 
@@ -183,172 +162,115 @@ class _HomeAtletaState extends State<HomeAtleta> {
         toolbarHeight: 4.0,
         elevation: 0.0,
       ),
-    body: SingleChildScrollView(  // Adiciona rolagem à tela
-    child: Padding(
-        padding: const EdgeInsets.fromLTRB(20.0, 60.0, 20.0, 0.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                const Text(
-                  'Olá',
-                  style: TextStyle(
-                    fontSize: 36.0,
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w300,
-                    color: Color(0xFF06113C),
-                  ),
+      body: SingleChildScrollView(  // Adiciona rolagem à tela
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 0.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                icon: SizedBox(
+                  width: 24.0,  // Defina a largura desejada
+                  height: 24.0,  // Defina a altura desejada
+                  child: SvgPicture.asset('assets/ic_volta.svg'),
                 ),
-                const SizedBox(width: 5.0),
-                Text(
-                  '$nomeUsuario,',
-                  style: const TextStyle(
-                    fontSize: 36.0,
-                    fontFamily: 'Open Sans',
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xFF06113C),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5.0),
-            const Text(
-              'Bons treinos!',
-              style: TextStyle(
-                fontSize: 15.0,
-                fontFamily: 'Open Sans',
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF06113C),
-              ),
-            ),
-            const SizedBox(height: 25.0),
-            const Text(
-              'Meus Tempos',
-              style: TextStyle(
-                fontSize: 17.0,
-                fontFamily: 'Open Sans',
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF0F2F7A),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            Container(
-              height: alturaContainer, // Altura fixa do container
-              decoration: BoxDecoration(
-                color: const Color(0xFF0C2172),
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: ListView.builder(
-                itemCount: listaTreinos.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 20.0), // Adiciona espaço à esquerda
-                    child: Treino(
-                      id_treino: (index + 1).toString(),
-                      tipo_treino: listaTreinos[index].tipo_treino,
-                      data_treino: listaTreinos[index].data_treino,
-                      media_treino: listaTreinos[index].media_treino,
-                    ),
-                  );
+                onPressed: () {
+                  Navigator.pop(context);
                 },
               ),
-            ),
-            const SizedBox(height: 20.0),
-            Column(
-              children: [
-                Row(
-                  children: [
-                    const Text(
-                      'Gráfico',
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        fontFamily: 'Open Sans',
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF0F2F7A),
-                      ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  const Text(
+                    'Registros de',
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w300,
+                      color: Color(0xFF06113C),
                     ),
-                    const Spacer(),
-                    Container(
-                      width: 140.0,
-                      height: 30.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: const Color(0xFFE3E3E3),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // Valor "50m"
-                          Container(
-                            width: 36.0,
-                            height: 20.0,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              color: const Color(0xFF0C2172),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                '50m',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontFamily: 'Open Sans',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          // Valor "100m"
-                          const Text(
-                            '100m',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Open Sans',
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F2F7A),
-                            ),
-                          ),
-
-                          // Valor "500m"
-                          const Text(
-                            '500m',
-                            style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Open Sans',
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF0F2F7A),
-                            ),
-                          ),
-                        ],
-                      ),
+                  ),
+                  const SizedBox(width: 5.0),
+                  Text(
+                    '$nomeUsuario',
+                    style: const TextStyle(
+                      fontSize: 24.0,
+                      fontFamily: 'Open Sans',
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xFF06113C),
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25.0),
+              const Text(
+                'Treinos',
+                style: TextStyle(
+                  fontSize: 17.0,
+                  fontFamily: 'Open Sans',
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF0F2F7A),
                 ),
+              ),
+              const SizedBox(height: 20.0),
+              Container(
+                height: alturaContainer, // Altura fixa do container
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0C2172),
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: ListView.builder(
+                  itemCount: listaTreinos.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 20.0), // Adiciona espaço à esquerda
+                      child: Treino(
+                        id_treino: (index + 1).toString(),
+                        tipo_treino: listaTreinos[index].tipo_treino,
+                        data_treino: listaTreinos[index].data_treino,
+                        media_treino: listaTreinos[index].media_treino,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Column(
+                children: [
+                  const Row(
+                    children: [
+                      Text(
+                        'Gráfico de Registros',
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          fontFamily: 'Open Sans',
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFF0F2F7A),
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 20.0), // Espaço entre os elementos
-                  MeuGraficoTreino(),
-                const SizedBox(height: 30.0),
-              ],
-            )
-          ],
+                  MeuGraficoTreino(userId: widget.userId),
+                  const SizedBox(height: 30.0),
+                ],
+              )
+            ],
+          ),
         ),
-      ),
-    ),
-      bottomNavigationBar: CustomBottomNavigationAtleta(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }
 }
 
 class MeuGraficoTreino extends StatefulWidget {
+  final String userId;
+
+  MeuGraficoTreino({Key? key, required this.userId}) : super(key: key);
+
   @override
   _MeuGraficoTreinoState createState() => _MeuGraficoTreinoState();
-
 }
 
 class _MeuGraficoTreinoState extends State<MeuGraficoTreino> {
@@ -372,13 +294,7 @@ class _MeuGraficoTreinoState extends State<MeuGraficoTreino> {
   }
 
   void _fetchDataForLoggedUser() {
-    var user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      String userId = user.uid;
-      _fetchData(userId);
-    } else {
-      print("Nenhum usuário logado.");
-    }
+      _fetchData(widget.userId);
   }
 
   @override
@@ -395,7 +311,7 @@ class _MeuGraficoTreinoState extends State<MeuGraficoTreino> {
     FirebaseFirestore.instance
         .collection('treinos')
         .where('idAtleta', isEqualTo: userId)
-        // .orderBy('numeroTreino', descending: true)
+    // .orderBy('numeroTreino', descending: true)
         .limit(1)
         .get()
         .then((querySnapshot) {
@@ -538,10 +454,4 @@ class _MeuGraficoTreinoState extends State<MeuGraficoTreino> {
       ],
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: HomeAtleta(),
-  ));
 }

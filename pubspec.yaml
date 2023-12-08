@@ -41,6 +41,7 @@ dependencies:
   cloud_firestore: ^4.12.2
   firebase_storage: ^11.5.3
   image_picker: ^1.0.4
+  fl_chart: 0.63.0
 
 dev_dependencies:
   flutter_test:
@@ -96,6 +97,7 @@ flutter:
     - assets/cronometro.svg
     - assets/cronometro_selecionado.svg
     - assets/loading_gif.gif
+    - assets/consultar_svg.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

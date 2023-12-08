@@ -1,12 +1,12 @@
+import 'package:desafio6etapa/screens/cronometro.dart';
 import 'package:desafio6etapa/screens/home_atleta.dart';
 import 'package:desafio6etapa/screens/home_treinador.dart';
-import 'package:desafio6etapa/screens/perfil_atleta.dart';
-import 'package:desafio6etapa/screens/perfil_treinador.dart';
-import 'package:desafio6etapa/screens/registro_atleta.dart';
+import 'package:desafio6etapa/screens/treinoEspecifico.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/barra_navegacao_treinador.dart';
 
 class Atletas extends StatefulWidget {
   @override
@@ -14,37 +14,68 @@ class Atletas extends StatefulWidget {
 }
 
 class _AtletasState extends State<Atletas> {
-  int _selectedIndex = 1;
+  TextEditingController _dataTreinoController = TextEditingController();
+  List<Map<String, dynamic>> atletasList = [];
+  String? selectedAtleta;
+  String? estiloTreino;
 
+  bool isButtonEnabled() {
+    return selectedAtleta != null && selectedAtleta != "";
+  }
 
-  void _onItemTapped(int index) {
-    if (index == 0) {
+  @override
+  void initState() {
+    super.initState();
+    DateTime dataAtual = DateTime.now();
+    _getAtletas(); // Chama a função para obter a lista de atletas
+  }
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeTreinador()),
-      );
-    } else if (index == 1) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Atletas()),
-      );
-    } else if (index == 2) {
-      // Navegar para a segunda tela
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => PerfilTreinador()),
-      );
-    }
+  Future<void> _getAtletas() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('atletas')
+        .where('situacao_atleta', isEqualTo: 'habilitado')
+        .get();
+
     setState(() {
-      _selectedIndex = index;
+      atletasList = snapshot.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+        return {
+          'id': document.id,
+          'nome': data['nom_atleta'],
+        };
+      }).toList();
     });
   }
 
+  void _navigateBasedOnUserType() async {
+    var user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      var userData = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+      String? tipoUsuario = userData.data()?['tipoUsuario'];
 
-  void _salvar() {
-
+      if (tipoUsuario != null) {
+        if (tipoUsuario == 'atleta') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeAtleta()),
+          );
+        } else if (tipoUsuario == 'treinador') {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomeTreinador()),
+          );
+        } else {
+          // Tratar caso o tipo de usuário não seja nem 'atleta' nem 'treinador'
+          print("Tipo de usuário desconhecido.");
+        }
+      } else {
+        // Tratar caso o campo 'tipoUsuario' não esteja presente
+        print("Campo 'tipoUsuario' não encontrado.");
+      }
+    } else {
+      // Tratar caso não haja usuário logado
+      print("Nenhum usuário logado.");
+    }
   }
 
   @override
@@ -59,13 +90,22 @@ class _AtletasState extends State<Atletas> {
           SliverAppBar(
             backgroundColor: Colors.white,
             elevation: 0.0,
+            leading: Container(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: IconButton(
+                icon: SvgPicture.asset('assets/ic_volta.svg'),
+                onPressed: () {
+                  _navigateBasedOnUserType();
+                },
+              ),
+            ),
             floating: false,
             pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
+            flexibleSpace: const FlexibleSpaceBar(
               centerTitle: true,
               titlePadding: EdgeInsets.only(top: 8.0),
               title: Text(
-                'Atletas',
+                'Pesquisar Atletas',
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 28.0,
@@ -73,7 +113,8 @@ class _AtletasState extends State<Atletas> {
                   color: Color(0xFF06113C),
                 ),
               ),
-            ), systemOverlayStyle: SystemUiOverlayStyle.light,
+            ),
+            systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           SliverToBoxAdapter(
             child: Column(
@@ -81,105 +122,92 @@ class _AtletasState extends State<Atletas> {
               children: [
                 SizedBox(height: 30 * ffem),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20 * ffem),
+                  padding: EdgeInsets.symmetric(horizontal: 40 * ffem),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Container(
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(
-                            color: Color(0xFF0F2F7A),
-                            width: 1.0,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Icon(
-                                Icons.search,
-                                color: Color(0xFF0C2172),
-                              ),
-                            ),
-                            Expanded(
-                              child: TextField(
-                                style: TextStyle(
-                                  color: Color(0xFF010410),
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: 'Pesquisar',
-                                  hintStyle: TextStyle(
-                                    fontFamily: 'Open Sans',
-                                    fontSize: 17 * ffem,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xFF0C2172),
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 20 * ffem),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => RegistroAtleta()));
+                      DropdownButtonFormField<String>(
+                        value: selectedAtleta,
+                        items: atletasList.map<DropdownMenuItem<String>>((atleta) {
+                          return DropdownMenuItem<String>(
+                            value: atleta['id'],
+                            child: Text(atleta['nome']),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            selectedAtleta = value;
+                          });
                         },
-                        child: Container(
-                          height: 90, //
-                          decoration: BoxDecoration(
-                            color: Color(0xFF0C2172),
-                            borderRadius: BorderRadius.circular(10),
+                        decoration: InputDecoration(
+                          labelText: 'Atleta',
+                          labelStyle: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 17 * ffem,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFF0C2172),
                           ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 60,
-                                margin: EdgeInsets.only(left: 15),
-                                decoration: BoxDecoration(
-                                  color: Colors.yellow,
-                                ),
-                              ),
-                              SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 20),
-                                  Text(
-                                    'Nome do Atleta',
-                                    style: TextStyle(
-                                      fontFamily: 'Open Sans',
-                                      fontSize: 15 * ffem,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.yellow,
-                                    ),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'Atleta desde: 08/2020',
-                                    style: TextStyle(
-                                      fontFamily: 'Open Sans',
-                                      fontSize: 12 * ffem,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Spacer(), //
-                              SvgPicture.asset(
-                                'assets/avancar.svg',
-                              ),
-                              SizedBox(width: 25),
-                            ],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xFF2C2C2E),
+                              width: 2.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: const BorderSide(
+                              color: Color(0xFF0C2172),
+                              width: 2.0,
+                            ),
                           ),
                         ),
+                        style: const TextStyle(
+                          color: Color(0xFF0C2172),
+                        ),
+                        hint: const Text('Selecione'),
                       ),
                       SizedBox(height: 40 * ffem),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 0.0),
+                        child: ElevatedButton(
+                          onPressed: isButtonEnabled()
+                              ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TreinoEspecifico(
+                                  userId: selectedAtleta!,
+                                ),
+                              ),
+                            );
+                          } : null, // Desabilita o botão se não houver atleta ou estilo selecionado
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(0xFF0C2172),
+                            onPrimary: Colors.yellow,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              'Pesquisar',
+                              style: TextStyle(
+                                fontSize: 18 * ffem,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -187,10 +215,6 @@ class _AtletasState extends State<Atletas> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationTreinador(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
       ),
     );
   }
