@@ -35,11 +35,15 @@ class _HomeADMState extends State<HomeADM> {
   Future<void> _signOut(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
+      // Navegue para a tela de login ou qualquer outra tela desejada após o logout
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
     } catch (e) {
       print('Erro durante o logout: $e');
+      // Lidar com erros, se necessário
     }
   }
+
+// ...
 
   void _showLogoutConfirmationDialog(BuildContext context) {
     showDialog(
@@ -50,13 +54,15 @@ class _HomeADMState extends State<HomeADM> {
           content: const Text('Tem certeza de que deseja sair da conta?'),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o diálogo
+              },
               child: const Text('Cancelar'),
             ),
             TextButton(
               onPressed: () async {
-                await _signOut(context);
-                Navigator.of(context).pop();
+                await _signOut(context); // Chama o método para fazer logout
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
               },
               child: const Text('Sair'),
             ),
