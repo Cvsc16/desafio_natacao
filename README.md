@@ -11,7 +11,7 @@ Diogo Vitor Oliveira Leme - 836846<br>
 **Email:** admdc6@gmail.com<br>
 **Senha:** adm123
 
-**Atleta:**<br> (voltas já registradas)
+**Atleta:**<br> (voltas já registradas)<br>
 **Email:** caiounfledz@gmail.com<br>
 **Senha:** caio123
 
