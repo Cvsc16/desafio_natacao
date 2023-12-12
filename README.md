@@ -11,4 +11,8 @@ Diogo Vitor Oliveira Leme - 836846<br>
 **Email:** admdc6@gmail.com<br>
 **Senha:** adm123
 
+**Atleta:**<br> (voltas já registradas)
+**Email:** caiounfledz@gmail.com<br>
+**Senha:** caio123
+
 Com o login de ADM é possível criar os outros usuários (é necessário usar um email valído e confirmar a criação da conta)
